@@ -1,4 +1,3 @@
-# Kaiden and Leo's API Project mod4 
 
 
 ## Database Schema Design
