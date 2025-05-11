@@ -131,6 +131,7 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
           model: SpotImage,
           attributes: ["url"],
           where: { preview: true },
+          required:false,
           limit: 1,
         },
         {
@@ -242,7 +243,6 @@ router.get("/:id", async (req, res) => {
         {
           model: SpotImage,
           attributes: ["id", "url", "preview",],
-          limit: 1,
         },
         {
           model: User, 
