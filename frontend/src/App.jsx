@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
+import SpotGrid from './components/SpotGrid';
+import SpotPage from './components/SpotPage/SpotPage';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -28,8 +30,14 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <SpotGrid/> 
+      },
+      {
+        path: '/spots/:id',
+        element: <SpotPage/>
       }
+      
+
     ]
   }
 ]);
