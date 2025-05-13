@@ -253,6 +253,9 @@ router.get("/:id", async (req, res) => {
     });
     if (!spot) return res.status(404).json({ message: "Spot couldn't be found" });
 
+
+    const previewImage = spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null;
+
     return res.status(200).json({
       id: spot.id,
       ownerId: spot.ownerId,
@@ -271,6 +274,7 @@ router.get("/:id", async (req, res) => {
       avgStarRating,
       SpotImages: spot.SpotImages,
       Owner: spot.Owner,
+      previewImage
     });
   } catch (error) {
     console.error(error);
