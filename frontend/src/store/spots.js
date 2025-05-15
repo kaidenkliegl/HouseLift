@@ -1,53 +1,88 @@
+import { csrfFetch } from "./csrf";
 
-import { csrfFetch } from './csrf';
+const SET_SPOTS = "spots/setSpots";
 
+const CREATE_SPOT = "spot/createSpot";
 
-const SET_SPOTS = 'spots/setSpots'
+const SET_SPOT_BY_ID = "spot/setSpotById";
 
-const SET_SPOT_BY_ID = 'spot/setSpotById'
-//action creator.. passing in spots to set to my action.payload 
+const SET_USER_SPOTS = "spots/setUserSpots";
 
 const setSpots = (spots) => {
-    return {
-        type: SET_SPOTS,
-        payload: spots
-      };
-}
+  return {
+    type: SET_SPOTS,
+    payload: spots,
+  };
+};
 
 const setSpotById = (spot) => {
-    return{
-        type: SET_SPOT_BY_ID,
-        payload:spot
-    }
-}
+  return {
+    type: SET_SPOT_BY_ID,
+    payload: spot,
+  };
+};
 
-//thunk to handle my async calls to the backend 
+const setNewSpot = (spot) => {
+  return {
+    type: CREATE_SPOT,
+    payload: spot,
+  };
+};
 
-export const retreiveSpots = () => async (dispatch) => { 
-    const response = await csrfFetch('/api/spots');
-    const data = await response.json();
-    dispatch(setSpots(data))
-}
+const setUserSpots = (spots) => {
+  return {
+    type: SET_USER_SPOTS,
+    payload: spots,
+  };
+};
 
-export const retreiveSpotByID = (id) => async (dispatch) => { 
-    const response = await csrfFetch(`/api/spots/${id}`);
-    const data = await response.json();
-    dispatch(setSpotById(data))
-}
+//thunk to handle my async calls to the backend
 
-const initialState = { allSpots: [], singleSpot:null}
+export const retreiveSpots = () => async (dispatch) => {
+  const response = await csrfFetch("/api/spots");
+  const data = await response.json();
+  dispatch(setSpots(data));
+};
 
-//reducer to set the state 
-const spotReducer = (state = initialState, action) =>{
-    switch (action.type) {
-        case SET_SPOTS:
-         return {...state, allSpots:action.payload.Spots}
-         case SET_SPOT_BY_ID:
-            return {...state, singleSpot: action.payload}
-        default:
-          return state;
-      }
-    };
+export const retreiveSpotByID = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${id}`);
+  const data = await response.json();
+  dispatch(setSpotById(data));
+};
 
+export const createNewSpot = (spotInfo) => async (dispatch) => {
+  console.log(spotInfo);
+  const res = await csrfFetch("/api/spots", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(spotInfo),
+  });
+  const data = await res.json;
+  dispatch(setNewSpot(data));
+};
 
-    export default spotReducer
+export const retreiveUserSpots = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/current`);
+  const data = await response.json();
+  dispatch(setUserSpots(data));
+};
+
+const initialState = { allSpots: [], singleSpot: null, userSpots: null };
+
+//reducer to set the state
+const spotReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SET_SPOTS:
+      return { ...state, allSpots: action.payload.Spots };
+    case SET_SPOT_BY_ID:
+      return { ...state, singleSpot: action.payload };
+    case SET_USER_SPOTS:
+      return { userSpots: action.payload.Spots };
+    default:
+      return state;
+  }
+};
+
+export default spotReducer;

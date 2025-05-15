@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
+import './SignUpFormModal.css'
 
 
 function SignupFormModal() {
@@ -43,8 +44,9 @@ function SignupFormModal() {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSubmit} className='signUpForm'>
+        <h1>Sign Up</h1>
         <label>
           Email
           <input

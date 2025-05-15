@@ -1,0 +1,7 @@
+.spot-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    margin: 1vh 10%;
+    padding: 0 80px;
+}

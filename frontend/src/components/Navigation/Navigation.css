@@ -9,8 +9,20 @@
     padding: 1vh 2vw;
     border-bottom: .5px solid grey;
   }
+  .home-nav{
+    padding: 1vh 2vw;
+  }
+  .standard-nav{
+    margin: 1vh 10%;
+    padding: 0 80px;
+  }
   .navBar li{
     list-style-type: none;
+  }
+  .nav-items-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
 /* .home{
