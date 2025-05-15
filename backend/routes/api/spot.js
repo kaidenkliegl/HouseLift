@@ -34,10 +34,12 @@ const validateSpot = [
     .withMessage("Valid country required."),
 
   check("lat")
+    .optional()
     .isFloat({ min: -90, max: 90 })
     .withMessage("Latitude must be an number between -90 and 90."),
 
   check("lng")
+    .optional()
     .isFloat({ min: -180, max: 180 })
     .withMessage("Longitude must be an number between -180 and 180."),
 
