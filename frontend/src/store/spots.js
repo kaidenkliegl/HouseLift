@@ -8,6 +8,9 @@ const SET_SPOT_BY_ID = "spot/setSpotById";
 
 const SET_USER_SPOTS = "spots/setUserSpots";
 
+const DELETE_SPOT = "spot/deleteSpot"
+
+
 const setSpots = (spots) => {
   return {
     type: SET_SPOTS,
@@ -35,6 +38,13 @@ const setUserSpots = (spots) => {
     payload: spots,
   };
 };
+
+const deleteSpot = (spotId) => { 
+    return { 
+        type: DELETE_SPOT,
+        payload: spotId
+    }
+}
 
 //thunk to handle my async calls to the backend
 
@@ -68,6 +78,10 @@ export const retreiveUserSpots = () => async (dispatch) => {
   const data = await response.json();
   dispatch(setUserSpots(data));
 };
+
+export const deleteUserSpot = (spotId) => async (dispatch) => { 
+    const res = await csrfFetch(`/api/spots/${spotId}`)
+}
 
 const initialState = { allSpots: [], singleSpot: null, userSpots: null };
 

@@ -13,7 +13,8 @@
     padding: 40px;
     border-radius: 20px;
     border: 1px solid black;
-    width: 110%;
+    width: auto;
+    height: 100%;
     background-color: white;
 }
 .loginForm input,

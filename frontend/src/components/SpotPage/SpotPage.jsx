@@ -25,9 +25,25 @@ function SpotPage() {
           </div>
         </div>
         <SpotImages spot={spot}></SpotImages>
-        <div>
-          <p>{spot.description}</p>
-          <SpotReviews spotId={id} price={spot.price} />
+
+        <div className="spotpage-main-div">
+          <div>
+            <h2>
+              Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+            </h2>
+            <p>{spot.description}</p>
+            <br />
+            <hr />
+            <br />
+            <SpotReviews spotId={id} price={spot.price} className="reviews" />
+          </div>
+          <div className="reserve-btn-box">
+            <div>
+              <h3 className="price">${spot.price}/night</h3>
+              <h4>new</h4>
+            </div>
+            <button>RESERVE</button>
+          </div>
         </div>
       </>
     );
