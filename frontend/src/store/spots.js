@@ -8,8 +8,11 @@ const SET_SPOT_BY_ID = "spot/setSpotById";
 
 const SET_USER_SPOTS = "spots/setUserSpots";
 
-const DELETE_SPOT = "spot/deleteSpot"
+const DELETE_SPOT = "spot/deleteSpot";
 
+const UPDATE_SPOT = "spot/updateSpot";
+
+const DISMOUNT_SPOT = "spots/dismountSpot";
 
 const setSpots = (spots) => {
   return {
@@ -39,14 +42,25 @@ const setUserSpots = (spots) => {
   };
 };
 
-const deleteSpot = (spotId) => { 
-    return { 
-        type: DELETE_SPOT,
-        payload: spotId
-    }
-}
+const deleteSpot = (spotId) => {
+  return {
+    type: DELETE_SPOT,
+    payload: spotId,
+  };
+};
 
-//thunk to handle my async calls to the backend
+const updateSpot = (spot) => {
+  return {
+    type: UPDATE_SPOT,
+    payload: spot,
+  };
+};
+
+export const dismountSpot = () => {
+  return {
+    type: DISMOUNT_SPOT,
+  };
+};
 
 export const retreiveSpots = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots");
@@ -61,7 +75,6 @@ export const retreiveSpotByID = (id) => async (dispatch) => {
 };
 
 export const createNewSpot = (spotInfo) => async (dispatch) => {
-  console.log(spotInfo);
   const res = await csrfFetch("/api/spots", {
     method: "POST",
     headers: {
@@ -79,9 +92,24 @@ export const retreiveUserSpots = () => async (dispatch) => {
   dispatch(setUserSpots(data));
 };
 
-export const deleteUserSpot = (spotId) => async (dispatch) => { 
-    const res = await csrfFetch(`/api/spots/${spotId}`)
-}
+export const deleteUserSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+  dispatch(deleteSpot(spotId));
+};
+
+export const editSpot = (spotId, spotInfo) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(spotData),
+  });
+  const updatedSpot = await res.json();
+  dispatch(updateSpot(updatedSpot));
+};
 
 const initialState = { allSpots: [], singleSpot: null, userSpots: null };
 
@@ -92,8 +120,23 @@ const spotReducer = (state = initialState, action) => {
       return { ...state, allSpots: action.payload.Spots };
     case SET_SPOT_BY_ID:
       return { ...state, singleSpot: action.payload };
+    case UPDATE_SPOT:
+      return {
+        ...state,
+        allSpots: { ...state.allSpots, [action.spot.id]: action.spot },
+      };
     case SET_USER_SPOTS:
       return { userSpots: action.payload.Spots };
+    case DELETE_SPOT:
+      return {
+        ...state,
+        userSpots: state.userSpots.filter((spot) => spot.id !== action.payload),
+      };
+    case DISMOUNT_SPOT:
+      return {
+        ...state,
+        singleSpot: null,
+      };
     default:
       return state;
   }

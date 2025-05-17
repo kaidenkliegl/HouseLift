@@ -6,23 +6,26 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  right: 30px;
-  background: white;
-  margin: 5px;
-  border: 1px solid #ccc;
-  list-style: none;
-  z-index: 100;
+  background-color: lightblue;
+  right: 40px;
+  margin: 10px;
   top: 70px;
-  width: 250px;
+  width: 200px;
   height: auto;
   border: 1px solid black;
+  align-items: center;
+  gap: 2px;
+  padding: 15px;
+  border-radius: 10px;
+ 
 }
 .profile-dropdown li,
 .profile-dropdown li button {
   max-width: 100%;
   width: 100%;
-  background-color: white;
+  border-radius: 10px;
   padding: 5px;
+
 }
 .profile-dropdown li button {
   border: none;

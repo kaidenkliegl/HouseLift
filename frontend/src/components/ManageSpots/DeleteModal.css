@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+}
+
+.dlt-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 30vw;
+    height: 25vh;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.dlt-modal button,
+.dlt-modal p,
+.dlt-modal h2{
+    width: 80%;
+    margin: auto;
+}
+
+.dlt-modal button{
+   height: 40px;
+   border-radius: 20px;
+    cursor: pointer;
+}
+
+

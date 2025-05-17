@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { retreiveSpotByID } from "../../store/spots";
 import SpotReviews from "../Reviews/SpotReviews";
 import SpotImages from "./SpotImages";
+import { dismountSpot } from "../../store/spots";
+
 import "./SpotPage.css";
 
 function SpotPage() {
@@ -13,6 +15,12 @@ function SpotPage() {
   useEffect(() => {
     dispatch(retreiveSpotByID(id));
   }, [dispatch, id]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+   dispatch(dismountSpot())
+  }, [location]);
 
   if (spot) {
     return (

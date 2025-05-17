@@ -21,9 +21,10 @@ const addReview = (review) => {
 };
 
 const deleteReview = (reviewId) => {
-  return { 
-    type: DELETE_REVIEW, 
-    payload: reviewId };
+  return {
+    type: DELETE_REVIEW,
+    payload: reviewId,
+  };
 };
 
 export const fetchReviews = (spotId) => async (dispatch) => {
@@ -42,15 +43,14 @@ export const createNewReview = (review) => async (dispatch) => {
   });
   const data = await res.json();
   dispatch(addReview(data));
-  
 };
 
-export const deleteUserReview = (reviewId => async (dispatch) => {
+export const deleteUserReview = (reviewId) => async (dispatch) => {
   const res = await csrfFetch(`/api/reviews/${reviewId}`, {
     method: "DELETE",
   });
   dispatch(deleteReview(reviewId));
-});
+};
 
 const initialState = { spotReviews: [] };
 
