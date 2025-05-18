@@ -1,43 +1,65 @@
-import { useDispatch } from "react-redux";
-import  { editSpot } from "../../store/spots";
-import { useState } from "react";
-
-
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { retreiveSpotByID, editSpot } from "../../store/spots";
 
 function EditSpot() {
   const dispatch = useDispatch();
-const currentSpot = useSelector(state => state.)
+  const { id } = useParams();
+  const spot = useSelector((state) => state.spots.singleSpot);
 
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [stateVal, setStateVal] = useState("");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState(["", "", "", "", ""]);
+
+  useEffect(() => {
+    dispatch(retreiveSpotByID(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (spot) {
+      setCountry(spot.country || "");
+      setAddress(spot.address || "");
+      setCity(spot.city || "");
+      setStateVal(spot.state || "");
+      setDescription(spot.description || "");
+      setName(spot.name || "");
+      setPrice(spot.price || "");
+      if (spot.images && spot.images.length > 0) {
+        const urls = spot.images.map(img => img.url);
+        const filledImages = [...urls, "", "", "", "", ""].slice(0, 5); 
+        setImages(filledImages);
+      }
+    }
+  }, [spot]);
 
   const handleImageChange = (index, value) => {
     const newImages = [...images];
     newImages[index] = value;
     setImages(newImages);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const editedSpot = await dispatch(
-      editSpot({
-        country,
-        address,
-        city,
-        state,
-        description,
-        name,
-        price,
-        images,
-      })
-    );
-  }
+
+    const updatedSpot = {
+      id,
+      country,
+      address,
+      city,
+      state: stateVal,
+      description,
+      name,
+      price: parseFloat(price),
+      images
+    };
+
+    await dispatch(editSpot(id, updatedSpot));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -79,15 +101,18 @@ const currentSpot = useSelector(state => state.)
         <input
           id="state"
           type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
+          value={stateVal}
+          onChange={(e) => setStateVal(e.target.value)}
           required
         />
       </div>
 
       <div className="input-label-div">
         <label htmlFor="description">Describe your place to your guests</label>
-        <p>Mention the best features of your space and any special ammenities like fast wifi or parking. </p>
+        <p>
+          Mention the best features of your space and any special ammenities
+          like fast wifi or parking.{" "}
+        </p>
         <textarea
           id="description"
           value={description}

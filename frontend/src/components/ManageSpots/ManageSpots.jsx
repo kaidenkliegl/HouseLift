@@ -23,17 +23,17 @@ function ManageSpots() {
       <h1>My Listings</h1>
       <div className="spotGrid">
         {currentSpots?.map((spot) => (
-          <div>
+          <div key={spot.id} >
             <MySpot key={spot.id} spot={spot} />
             <OpenModalButton
-                buttonText="Delete"
-                modalComponent={<DeleteModal spot={spot} func={handleDelete}/>}
-              />
+              buttonText="Delete"
+              modalComponent={<DeleteModal spot={spot} func={handleDelete} />}
+            />
+            <Link to={`/spots/${spot.id}/edit`}>
+              <button>Update</button>
+            </Link>
           </div>
         ))}
-        {/* <Link to={`/spots/${spot}/edit`}>
-                <button>Update</button>
-              </Link> */}
       </div>
     </>
   );

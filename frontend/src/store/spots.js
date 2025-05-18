@@ -82,7 +82,7 @@ export const createNewSpot = (spotInfo) => async (dispatch) => {
     },
     body: JSON.stringify(spotInfo),
   });
-  const data = await res.json;
+  const data = await res.json();
   dispatch(setNewSpot(data));
 };
 
@@ -105,7 +105,7 @@ export const editSpot = (spotId, spotInfo) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(spotData),
+    body: JSON.stringify(spotInfo),
   });
   const updatedSpot = await res.json();
   dispatch(updateSpot(updatedSpot));
@@ -117,16 +117,18 @@ const initialState = { allSpots: [], singleSpot: null, userSpots: null };
 const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SPOTS:
-      return { ...state, allSpots: action.payload.Spots };
+      return { ...state, allSpots: action.payload.Spots || action.payload };
     case SET_SPOT_BY_ID:
       return { ...state, singleSpot: action.payload };
     case UPDATE_SPOT:
-      return {
-        ...state,
-        allSpots: { ...state.allSpots, [action.spot.id]: action.spot },
-      };
+        return {
+            ...state,
+            userSpots: state.userSpots?.map((spot) =>
+              spot.id === action.payload.id ? action.payload : spot
+            ),
+        };
     case SET_USER_SPOTS:
-      return { userSpots: action.payload.Spots };
+      return { userSpots: action.payload.Spots || action.payload};
     case DELETE_SPOT:
       return {
         ...state,
