@@ -61,7 +61,7 @@ const reviewsReducer = (state = initialState, action) => {
     case CREATE_REVIEW:
       return {
         ...state,
-        spotReviews: [...state.spotReviews, action.payload],
+        spotReviews: [action.payload, ...state.spotReviews ],
       };
     case DELETE_REVIEW:
       return {

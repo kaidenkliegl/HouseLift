@@ -1,12 +1,11 @@
-import "./DeleteModal.css";
+import "./DeleteReviewModal.css";
 import { useModal } from "../../context/Modal";
 
-function DeleteModal({ func, spot }) {
+function DeleteReviewModal({ func, spot }) {
     const { closeModal } = useModal();
   return (
     <div className="dlt-modal">
       <h2>Confirm Delete</h2>
-      <p>Are you sure you want to remove this listing from your profile?</p>
       <button
       className="dlt-button"
         onClick={() => {
@@ -28,4 +27,4 @@ function DeleteModal({ func, spot }) {
   );
 }
 
-export default DeleteModal;
+export default DeleteReviewModal;

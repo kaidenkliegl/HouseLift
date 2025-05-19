@@ -60,12 +60,21 @@ function ProfileButton({ user }) {
               {user.firstName} {user.lastName}
             </li>
             <li>{user.email}</li>
-            
+
             <li>
-              <NavLink to="/spots/current">Manage Spots</NavLink>
+              <NavLink to="/spots/current" onClick={() => closeMenu()}>
+                Manage Spots
+              </NavLink>
             </li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button
+                onClick={(e) => {
+                  logout(e);
+                  setShowMenu(false);
+                }}
+              >
+                Log Out
+              </button>
             </li>
           </>
         ) : (

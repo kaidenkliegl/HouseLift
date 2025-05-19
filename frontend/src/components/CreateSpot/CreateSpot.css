@@ -1,21 +1,103 @@
-*{ 
-    margin: none;
+* {
+  margin: none;
 }
 
-form{
-    max-width: 400px;
-  margin: 2rem auto;
+form {
+  max-width: 400px;
+  margin: 6rem auto;
   padding: 1.5rem 2rem;
   background: #f3f1f1;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
-    
-    
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-label-div {
+  display: flex;
+  flex-direction: column;
+}
+.input-label-div input {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.input-label-div label {
+    padding: 8px 0;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+.city-state-div {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input {
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.btn-box{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 0 0;
+}
+.next-btn{
+    width: 60px;
+    height: 24px;
+    border-radius: 5px;
+    color: white;
+    background-color:rgb(39, 10, 255);
+    font-size: 15px;
+   align-self: flex-end;
+}
+.next-btn:disabled{
+    width: 60px;
+    height: 24px;
+    border-radius: 5px;
+    color: white;
+    background-color:rgb(144, 134, 219);
+    font-size: 15px;
+   align-self: flex-end;
+}
+.back-btn{
+    width: 60px;
+    height: 24px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(39, 10, 255);
+    font-size: 15px;
+ 
+}
+
+.submit-btn{
+    width: 60px;
+    height: 24px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(64, 154, 124);
+    font-size: 15px;
 
 }
 
-.input-label-div{
-    display: flex;
-    flex-direction: column;
+.spot-description{
+    min-height: 150px;
+    overflow-y: auto;
 }

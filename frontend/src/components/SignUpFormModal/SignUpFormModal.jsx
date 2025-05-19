@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignUpFormModal.css'
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignUpFormModal.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ function SignupFormModal() {
           username,
           firstName,
           lastName,
-          password
+          password,
         })
       )
         .then(closeModal)
@@ -38,14 +37,25 @@ function SignupFormModal() {
         });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
 
+  const completedForm =
+    !email ||
+    !username ||
+    !firstName ||
+    !lastName ||
+    !password ||
+    !confirmPassword;
+
+  const passwordIsTooShort = password.length < 6;
+  const usernameIsTooShort = username.length < 3;
+
   return (
     <>
-      
-      <form onSubmit={handleSubmit} className='signUpForm'>
+      <form onSubmit={handleSubmit} className="signUpForm">
         <h1>Sign Up</h1>
         <label>
           Email
@@ -106,10 +116,13 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        <button
+          type="submit"
+          disabled={completedForm || passwordIsTooShort || usernameIsTooShort}
+        >
+          Sign Up
+        </button>
       </form>
     </>
   );

@@ -1,0 +1,77 @@
+.reviewForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .reviewForm h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+  }
+  
+  textarea:focus {
+    border-color: #0077ff;
+    outline: none;
+  }
+  
+  .formItem label {
+    font-weight: 500;
+  }
+  
+  .formItem input[type="radio"] {
+    margin-right: 0.25rem;
+  }
+  
+  .formItem label:not(:first-child) {
+    margin-left: 1rem;
+  }
+  
+  .review-submit-btn {
+    background-color: #0077ff;       /* Bright blue */
+    color: white;                    /* White text */
+    border: none;                   /* No border */
+    padding: 0.75rem 1.5rem;         /* Good padding */
+    font-size: 1.1rem;               /* Slightly larger font */
+    border-radius: 8px;              /* Rounded corners */
+    cursor: pointer;                 /* Pointer cursor */
+    font-weight: 600;                /* Semi-bold */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .review-submit-btn:hover:not(:disabled) {
+    background-color: #005dc1;       /* Darker blue on hover */
+    transform: scale(1.05);          /* Slight zoom effect */
+  }
+  
+  .review-submit-btn:disabled {
+    background-color: #cccccc;       /* Gray background */
+    cursor: not-allowed;             /* Disabled cursor */
+    color: #666666;                  /* Dark gray text */
+    transform: none;                 /* No transform */
+  }
+  
+  .error {
+    color: #d8000c;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+  }
+  

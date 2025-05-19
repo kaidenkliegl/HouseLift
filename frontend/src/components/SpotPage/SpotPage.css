@@ -5,6 +5,34 @@
   margin: 1vh 10%;
   padding: 0 80px;
 }
+.spot-description{
+    padding-top: 20px;
+    overflow-wrap: break-word;
+}
+.share-like-btns {
+  display: flex;
+}
+.share-btn {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.download-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.like-btn {
+  border: none;
+  background-color: transparent;
+}
+.like-btn img {
+  height: 22px;
+  width: 22px;
+}
 
 .spotpage-main-div {
   display: flex;
@@ -12,16 +40,51 @@
   padding: 0 80px;
 }
 .reserve-btn-box {
-  display: flex;
-  flex: 1;
   position: sticky;
-  top: 80px;
-  padding: 40px;
-  margin: 40px 0 auto 70px;
+  display: flex;
   flex-direction: column;
+  top: 80px;
+  padding: 30px;
+  /* margin: 40px 0 auto 20vw; */
+  margin-top: 40px;
+  margin-left: auto;
   background-color: rgb(252, 252, 252);
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   width: 200px;
   min-width: 200px;
+  max-height: 70px;
+  min-height: 70px;
+}
+.price-and-stars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.price-and-stars img {
+  margin: 0 0 0 15px;
+}
+
+.price-and-stars h4 {
+  margin: 0 15px 0 0;
+  color: black;
+  font-size: 18px;
+}
+
+.reserve-btn {
+  width: 100%;
+  background-color: rgb(238, 49, 55);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reserve-btn:hover {
+  width: 100%;
+  background-color: rgb(145, 21, 56);
 }

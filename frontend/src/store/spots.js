@@ -123,6 +123,7 @@ const spotReducer = (state = initialState, action) => {
     case UPDATE_SPOT:
         return {
             ...state,
+            singleSpot: action.payload,
             userSpots: state.userSpots?.map((spot) =>
               spot.id === action.payload.id ? action.payload : spot
             ),

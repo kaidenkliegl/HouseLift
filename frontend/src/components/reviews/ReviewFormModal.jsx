@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useModal } from "../../context/Modal"; // Make sure you have this
+import { useModal } from "../../context/Modal"; 
 import { createNewReview } from "../../store/reviews";
+import { retreiveSpotByID } from "../../store/spots";
+import "./ReviewForm.css"
 
-function ReviewForm({spotId}) {
+
+function ReviewFormModal({spotId}) {
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.session.user?.id);
@@ -15,7 +18,6 @@ function ReviewForm({spotId}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-console.log(stars, review)
     const newReview = {
       spotId:parseInt(spotId),
       review,
@@ -23,16 +25,19 @@ console.log(stars, review)
     };
 
     return dispatch(createNewReview(newReview))
-      .then(() => closeModal())
+      .then(() => {
+        dispatch(retreiveSpotByID(spotId));
+        closeModal()})
       .catch(async (res) => {
         const data = await res.json();
         if (data?.errors) setErrors(data.errors);
       });
+
   };
 
   return (
     <form onSubmit={handleSubmit} className="reviewForm">
-      <h1 className="formItem">Leave a Review</h1>
+      <h1 className="formItem">How was your stay?</h1>
 
       <textarea
         id="review"
@@ -40,7 +45,7 @@ console.log(stars, review)
         onChange={(e) => setReview(e.target.value)}
         required
         className="formItem"
-        placeholder="Write your review here"
+        placeholder="Leave your review here"
       />
 
       <div className="formItem">
@@ -63,9 +68,9 @@ console.log(stars, review)
       {errors.review && <p className="error">{errors.review}</p>}
       {errors.stars && <p className="error">{errors.stars}</p>}
 
-      <button type="submit" className="formItem">Add Review</button>
+      <button type="submit" className="review-submit-btn" disabled={review.length <= 10}>Submit your review</button>
     </form>
   );
 }
 
-export default ReviewForm;
+export default ReviewFormModal;

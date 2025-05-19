@@ -18,23 +18,30 @@ function ManageSpots() {
     dispatch(deleteUserSpot(spot.id));
   };
 
+
   return (
     <>
-      <h1>My Listings</h1>
-      <div className="spotGrid">
-        {currentSpots?.map((spot) => (
-          <div key={spot.id} >
-            <MySpot key={spot.id} spot={spot} />
-            <OpenModalButton
-              buttonText="Delete"
-              modalComponent={<DeleteModal spot={spot} func={handleDelete} />}
-            />
-            <Link to={`/spots/${spot.id}/edit`}>
-              <button>Update</button>
-            </Link>
+    <h2>Manage Listings</h2>
+      {currentSpots?.length === 0 ? (
+        <Link to="/spots/new">Create New Listing</Link>
+      ) : (
+        <>
+          <div className="spotGrid">
+            {currentSpots?.map((spot) => (
+              <div key={spot.id}>
+                <MySpot spot={spot} />
+                <OpenModalButton
+                  buttonText="Delete"
+                  modalComponent={<DeleteModal spot={spot} func={handleDelete} />}
+                />
+                <Link to={`/spots/${spot.id}/edit`}>
+                  <button>Update</button>
+                </Link>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </>
   );
 }
