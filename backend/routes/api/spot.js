@@ -433,6 +433,7 @@ router.get("/:spotId/reviews", async (req, res) => {
           attributes: ["id", "url"],
         },
       ],
+      order:[['createdAt', 'DESC']]
   });
     return res.status(200).json({Reviews: spotReviews})
   } catch (error) {
@@ -462,7 +463,16 @@ router.post("/:spotId/reviews", requireAuth, reviewValidation, async (req, res) 
     stars
   });
 
-  return res.status(201).json(newReview)
+  const reviewWithUser = await Review.findByPk(newReview.id, {
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName'] // only send what you need
+      }
+    ]
+  });
+
+  return res.status(201).json(reviewWithUser);
   }catch(error){
     console.error("Error creating a review:", error);
     return res.status(500).json({ message: "Server error" });
