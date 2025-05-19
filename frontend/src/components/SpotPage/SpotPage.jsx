@@ -19,7 +19,7 @@ function SpotPage() {
 
   useEffect(() => {
     dispatch(dismountSpot());
-  }, [location]);
+  }, [dispatch,location]);
 
   if (spot) {
     return (

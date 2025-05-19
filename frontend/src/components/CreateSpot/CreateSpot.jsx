@@ -3,8 +3,7 @@ import { createNewSpot } from "../../store/spots";
 import { useState } from "react";
 import "./CreateSpot.css";
 import { useNavigate } from "react-router-dom";
-import { retreiveUserSpots } from "../../store/spots";
-import { retreiveSpots } from "../../store/spots";
+
 
 
 function CreateSpot() {
@@ -71,7 +70,7 @@ function CreateSpot() {
     <form onSubmit={handleSubmit}>
       {page === 1 && (
         <div className="form-section-div">
-          <h2>Where's your place located?</h2>
+          <h2>Where&apos;s your place located?</h2>
           <p>
             Guests will only get the exact address once they booked a
             reservation

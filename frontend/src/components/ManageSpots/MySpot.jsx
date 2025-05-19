@@ -1,12 +1,9 @@
-import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { deleteUserSpot } from "../../store/spots";
-import ManageSpots from "./ManageSpots";
-import { retreiveUserSpots } from "../../store/spots";
+
 
 
 function MySpot({ spot }) {
-  const dispatch = useDispatch();
   return (
       <Link to={`/spots/${spot.id}`}>
         <img src={spot.previewImage} alt="" className="spotImage" />

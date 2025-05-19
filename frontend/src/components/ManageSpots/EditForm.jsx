@@ -76,7 +76,7 @@ function EditSpot() {
     <form onSubmit={handleSubmit}>
       {page === 1 && (
         <div className="form-section-div">
-          <h2>Where's your place located?</h2>
+          <h2>Where&apos;s your place located?</h2>
           <p>
             Guests will only get the exact address once they booked a
             reservation

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal"; 
 import { createNewReview } from "../../store/reviews";
 import { retreiveSpotByID } from "../../store/spots";
@@ -10,7 +9,6 @@ import "./ReviewForm.css"
 function ReviewFormModal({spotId}) {
   const dispatch = useDispatch();
 
-  const userId = useSelector((state) => state.session.user?.id);
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});

@@ -8,10 +8,13 @@ import SignupFormModal from "../SignUpFormModal";
 import { NavLink } from "react-router-dom";
 import "./ProfileButton.css";
 
+
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+
+  const closeMenu = () => setShowMenu(false);
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
