@@ -330,6 +330,32 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     return res.status(500).json({ message: "Could not create a new Spot" });
   }
 });
+//deleting a spot 
+router.delete("/:id", requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const spot = await Spot.findByPk(id);
+
+    if (!spot) return res.status(404).json({ message: "Spot not found" });
+
+    if (spot.ownerId !== userId) {
+      return res.status(403).json({ message: "Forbidden access!" });
+    }
+  
+    await SpotImage.destroy({ where: { spotId: id } });
+    await Review.destroy({ where: { spotId: id } });
+    await Booking.destroy({ where: { spotId: id } });
+    await spot.destroy();
+
+    return res.status(200).json({ message: "Spot successfully deleted" });
+  } catch (error) {
+    console.error("Could not delete spot, Error: ", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 //add an image to the spot by spot id in params
 router.post("/:id/images", requireAuth, async (req, res) => {
@@ -378,7 +404,7 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
       name,
       description,
       price,
-      images, // include images
+      images, 
     } = req.body;
 
     const spot = await Spot.findByPk(id);
@@ -386,7 +412,6 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
     if (spot.ownerId !== userId)
       return res.status(403).json({ message: "Forbidden access!" });
 
-    // Update spot fields
     Object.assign(spot, {
       address,
       city,
