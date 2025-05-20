@@ -27,30 +27,34 @@ function SpotReviews({ spotId, price }) {
 
   return (
     <div className="spotReviews">
-      <h3 id="review-header">Reviews</h3>
-      <div className="review-count-div">
+  <h3 id="review-header">Reviews</h3>
+  <div className="review-count-div">
+    {spot.numReviews > 0 ? (
+      <>
         <h4>
           {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
         </h4>
-        {spot.avgStarRating ? (
-          <div className="star-rating">
-            <img
-              id="rating-dot"
-              src="https://img.icons8.com/material-sharp/24/full-stop.png"
-              alt="full-stop"
-            />
-            <img
-              width="50"
-              height="50"
-              src="https://img.icons8.com/ios-filled/50/star--v1.png"
-              alt="star--v1"
-            />
-            <p className="spotInfo starRating">{spot.avgStarRating}</p>
-          </div>
-        ) : (
-          <h4>New</h4>
-        )}
-      </div>
+        <div className="star-rating">
+          <img
+            id="rating-dot"
+            src="https://img.icons8.com/material-sharp/24/full-stop.png"
+            alt="full-stop"
+          />
+          <img
+            width="50"
+            height="50"
+            src="https://img.icons8.com/ios-filled/50/star--v1.png"
+            alt="star--v1"
+          />
+          <p className="spotInfo starRating">{spot.avgStarRating}</p>
+        </div>
+      </>
+    ) : (
+      <h4>New</h4>
+    )}
+  </div>
+
+
 
       {currentUser && currentUser.id !== spot.ownerId && (
         <OpenModalButton
