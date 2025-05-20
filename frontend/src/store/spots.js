@@ -75,15 +75,33 @@ export const retreiveSpotByID = (id) => async (dispatch) => {
 };
 
 export const createNewSpot = (spotInfo) => async (dispatch) => {
-  const res = await csrfFetch("/api/spots", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(spotInfo),
-  });
-  const data = await res.json();
-  dispatch(setNewSpot(data));
+    const { images, ...spotData } = spotInfo;
+  
+    // Create spot
+    const res = await csrfFetch("/api/spots", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(spotData),
+    });
+    const data = await res.json();
+  
+    // Add images
+    if (images && images.length > 0) {
+        for (const imageObj of images) {
+            await csrfFetch(`/api/spots/${data.id}/images`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ url: imageObj.url, preview: imageObj.preview || false }),
+            });
+          }
+    }
+  
+    // Fetch the spot with images included
+    const spotRes = await csrfFetch(`/api/spots/${data.id}`);
+    const spotWithImages = await spotRes.json();
+  
+    dispatch(setNewSpot(spotWithImages));
+    return spotWithImages;
 };
 
 export const retreiveUserSpots = () => async (dispatch) => {

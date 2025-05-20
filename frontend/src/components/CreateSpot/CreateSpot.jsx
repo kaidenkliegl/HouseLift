@@ -4,11 +4,9 @@ import { useState } from "react";
 import "./CreateSpot.css";
 import { useNavigate } from "react-router-dom";
 
-
-
 function CreateSpot() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [country, setCountry] = useState("");
   const [address, setAddress] = useState("");
@@ -17,24 +15,40 @@ function CreateSpot() {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [images, setImages] = useState(["", "", "", "", ""]);
+  
+  // images as objects with url + preview flag
+  const [images, setImages] = useState([
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+  ]);
 
   const [page, setPage] = useState(1);
-
   const nextPage = () => setPage((prev) => prev + 1);
   const previousPage = () => setPage((prev) => prev - 1);
 
-
-
-  const handleImageChange = (index, value) => {
+  // Update url or preview in images state
+  const handleImageChange = (index, field, value) => {
     const newImages = [...images];
-    newImages[index] = value;
+    if (field === "preview") {
+      // Set all previews false except the selected one
+      newImages.forEach((img, i) => {
+        img.preview = i === index;
+      });
+    } else if (field === "url") {
+      newImages[index].url = value;
+    }
     setImages(newImages);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Filter out images without URL
+    const filteredImages = images.filter((img) => img.url.trim() !== "");
+
     const newSpot = await dispatch(
       createNewSpot({
         country,
@@ -44,10 +58,12 @@ function CreateSpot() {
         description,
         name,
         price,
-        images,
+        images: filteredImages,
       })
     );
+
     if (newSpot && newSpot.id) {
+      // Clear form
       setCountry("");
       setAddress("");
       setCity("");
@@ -55,11 +71,15 @@ function CreateSpot() {
       setDescription("");
       setName("");
       setPrice("");
-      setImages(["", "", "", "", ""]);
-    
-
-    } 
-     navigate(`/spots/current`);
+      setImages([
+        { url: "", preview: false },
+        { url: "", preview: false },
+        { url: "", preview: false },
+        { url: "", preview: false },
+        { url: "", preview: false },
+      ]);
+      navigate(`/spots/current`);
+    }
   };
 
   const isPage1Valid = country && address && city && state;
@@ -72,8 +92,7 @@ function CreateSpot() {
         <div className="form-section-div">
           <h2>Where&apos;s your place located?</h2>
           <p>
-            Guests will only get the exact address once they booked a
-            reservation
+            Guests will only get the exact address once they booked a reservation.
           </p>
           <br />
           <div className="input-label-div">
@@ -87,7 +106,6 @@ function CreateSpot() {
               required
             />
           </div>
-
           <div className="input-label-div">
             <label htmlFor="street">Street Address:</label>
             <input
@@ -99,7 +117,6 @@ function CreateSpot() {
               required
             />
           </div>
-
           <div className="input-label-div city-state-div">
             <div className="input-group">
               <label htmlFor="city">City</label>
@@ -112,7 +129,6 @@ function CreateSpot() {
                 required
               />
             </div>
-
             <div className="input-group">
               <label htmlFor="state">State</label>
               <input
@@ -125,24 +141,18 @@ function CreateSpot() {
               />
             </div>
           </div>
-          <button
-            className="next-btn"
-            onClick={nextPage}
-            disabled={!isPage1Valid}
-          >
+          <button className="next-btn" onClick={nextPage} disabled={!isPage1Valid}>
             Next
           </button>
         </div>
       )}
+
       {page === 2 && (
         <div className="form-section-div">
           <div className="input-label-div">
-            <label htmlFor="description">
-              Describe your place to your guests
-            </label>
+            <label htmlFor="description">Describe your place to your guests</label>
             <p>
-              Mention the best features of your space and any special ammenities
-              like fast wifi or parking.{" "}
+              Mention the best features of your space and any special ammenities like fast wifi or parking.
             </p>
             <textarea
               id="description"
@@ -156,8 +166,7 @@ function CreateSpot() {
           <div className="input-label-div">
             <label htmlFor="name">Create a title for your spot</label>
             <p>
-              catch guests attention with a spot title that highlights what
-              makes your place special.
+              Catch guests&apos; attention with a spot title that highlights what makes your place special.
             </p>
             <input
               id="name"
@@ -168,12 +177,10 @@ function CreateSpot() {
               required
             />
           </div>
-
           <div className="input-label-div spot-price-div">
             <label htmlFor="price">Set a base price for your spot</label>
             <p>
-              competitive pricing can help your listing stand out and rank
-              higher in search results.
+              Competitive pricing can help your listing stand out and rank higher in search results.
             </p>
             <input
               id="price"
@@ -188,11 +195,7 @@ function CreateSpot() {
             <button className="back-btn" onClick={previousPage}>
               Back
             </button>
-            <button
-              className="next-btn"
-              onClick={nextPage}
-              disabled={!isPage2Valid}
-            >
+            <button className="next-btn" onClick={nextPage} disabled={!isPage2Valid}>
               Next
             </button>
           </div>
@@ -201,37 +204,35 @@ function CreateSpot() {
 
       {page === 3 && (
         <div>
+          <h2>Upload up to 5 image URLs</h2>
           {images.map((img, index) => (
-  <div className="input-label-div" key={index}>
-    <label htmlFor={`image-${index}`}>Image URL</label>
-    <input
-      id={`image-${index}`}
-      type="url"
-      value={img}
-      onChange={(e) => handleImageChange(index, e.target.value)}
-      placeholder="Image URL"
-    />
-    <button
-      type="button"
-      onClick={() => {
-        const newImages = images.filter((_, i) => i !== index);
-        setImages(newImages);
-      }}
-    >
-      Delete
-    </button>
-  </div>
-))}
-
-{images.length < 5 && (
-  <button
-    type="button"
-    onClick={() => setImages([...images, ""])}
-    style={{ marginTop: "10px" }}
-  >
-    Add another image
-  </button>
-)}
+            <div className="input-label-div" key={index}>
+              <label htmlFor={`image-${index}`}>Image URL {index + 1}</label>
+              <input
+                id={`image-${index}`}
+                type="url"
+                value={img.url}
+                onChange={(e) => handleImageChange(index, "url", e.target.value)}
+                placeholder="Image URL"
+              />
+              <label>
+                <input
+                  type="radio"
+                  name="preview"
+                  checked={img.preview}
+                  onChange={() => handleImageChange(index, "preview", true)}
+                />
+                Set as preview image
+              </label>
+              {img.url && (
+                <img
+                  src={img.url}
+                  alt={`Preview ${index + 1}`}
+                  style={{ width: "100px", marginTop: "5px" }}
+                />
+              )}
+            </div>
+          ))}
           <div className="btn-box">
             <button className="back-btn" type="button" onClick={previousPage}>
               Back
