@@ -60,7 +60,7 @@ function SpotPage() {
             <br />
             <hr />
             <br />
-            <SpotReviews spotId={id} price={spot.price} className="reviews" />
+            <SpotReviews spotId={id} price={Number(spot.price).toFixed(2)} className="reviews" />
           </div>
           <div className="reserve-btn-box">
             <div className="price-and-stars">
