@@ -24,7 +24,7 @@ function SpotCard({ spot }) {
           )}
         </div>
 
-        <h4 className="spotPrice">${spot.price}/night</h4>
+        <h4 className="spotPrice">${spot.price.toFixed(2)}/night</h4>
       
     </Link>
   );

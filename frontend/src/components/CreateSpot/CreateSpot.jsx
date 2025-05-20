@@ -202,34 +202,36 @@ function CreateSpot() {
       {page === 3 && (
         <div>
           {images.map((img, index) => (
-            <div className="input-label-div" key={index}>
-              <label htmlFor={`image-${index}`}>Image URL</label>
-              <input
-                id={`image-${index}`}
-                type="url"
-                value={img}
-                onChange={(e) => handleImageChange(index, e.target.value)}
-                placeholder="Image URL"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  const newImages = images.filter((_, i) => i !== index);
-                  setImages(newImages);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          ))}
+  <div className="input-label-div" key={index}>
+    <label htmlFor={`image-${index}`}>Image URL</label>
+    <input
+      id={`image-${index}`}
+      type="url"
+      value={img}
+      onChange={(e) => handleImageChange(index, e.target.value)}
+      placeholder="Image URL"
+    />
+    <button
+      type="button"
+      onClick={() => {
+        const newImages = images.filter((_, i) => i !== index);
+        setImages(newImages);
+      }}
+    >
+      Delete
+    </button>
+  </div>
+))}
 
-          <button
-            type="button"
-            onClick={() => setImages([...images, ""])}
-            style={{ marginTop: "10px" }}
-          >
-            Add another image
-          </button>
+{images.length < 5 && (
+  <button
+    type="button"
+    onClick={() => setImages([...images, ""])}
+    style={{ marginTop: "10px" }}
+  >
+    Add another image
+  </button>
+)}
           <div className="btn-box">
             <button className="back-btn" type="button" onClick={previousPage}>
               Back
