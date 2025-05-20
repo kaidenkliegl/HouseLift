@@ -24,7 +24,9 @@ function SpotPage() {
   if (spot) {
     return (
       <>
+      <h2 className="spot-name">{spot.name}</h2>
         <div className="spot-header">
+          
           <p>{spot.city + ", " + spot.state + ", " + spot.country}</p>
           <div className="share-like-btns">
             <button className="share-btn">

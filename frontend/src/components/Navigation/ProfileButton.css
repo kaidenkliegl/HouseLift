@@ -6,7 +6,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: lightblue;
+  background-color: rgb(38, 79, 213);
   right: 40px;
   margin: 10px;
   top: 70px;
@@ -23,6 +23,10 @@
 .manage-link{
   text-decoration: underline;
 }
+.profile-dropdown li{
+  color: rgb(210, 210, 234);
+}
+
 .profile-dropdown li,
 .profile-dropdown li button {
   max-width: 100%;
@@ -30,9 +34,11 @@
   border-radius: 10px;
   padding: 5px;
 
+
 }
 .profile-dropdown li button {
   border: none;
+  color: black;
 }
 .profile-dropdown li button:hover {
   background-color: rgb(239, 235, 235);

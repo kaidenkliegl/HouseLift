@@ -5,6 +5,7 @@ import MySpot from "./MySpot";
 import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "./DeleteModal";
+import "./ManageSpots.css"
 deleteUserSpot;
 
 function ManageSpots() {
@@ -21,9 +22,12 @@ function ManageSpots() {
 
   return (
     <>
-    <h2>Manage Listings</h2>
+    <h2 className="manage-header">Manage Listings</h2>
       {currentSpots?.length === 0 ? (
-        <Link to="/spots/new">Create New Listing</Link>
+        <div className="listing-button-box">
+          <Link to="/spots/new" className="create-listing-button">Create New Listing</Link>
+        </div>
+        
       ) : (
         <>
           <div className="spotGrid">
