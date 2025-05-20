@@ -46,27 +46,27 @@
   }
   
   .review-submit-btn {
-    background-color: #0077ff;       /* Bright blue */
-    color: white;                    /* White text */
-    border: none;                   /* No border */
-    padding: 0.75rem 1.5rem;         /* Good padding */
-    font-size: 1.1rem;               /* Slightly larger font */
-    border-radius: 8px;              /* Rounded corners */
-    cursor: pointer;                 /* Pointer cursor */
-    font-weight: 600;                /* Semi-bold */
+    background-color: #0077ff;       
+    color: white;               
+    border: none;                  
+    padding: 0.75rem 1.5rem;         
+    font-size: 1.1rem;              
+    border-radius: 8px;            
+    cursor: pointer;               
+    font-weight: 600;               
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
   .review-submit-btn:hover:not(:disabled) {
-    background-color: #005dc1;       /* Darker blue on hover */
-    transform: scale(1.05);          /* Slight zoom effect */
+    background-color: #005dc1;      
+    transform: scale(1.05);         
   }
   
   .review-submit-btn:disabled {
-    background-color: #cccccc;       /* Gray background */
-    cursor: not-allowed;             /* Disabled cursor */
-    color: #666666;                  /* Dark gray text */
-    transform: none;                 /* No transform */
+    background-color: #cccccc;     
+    cursor: not-allowed;           
+    color: #666666;               
+    transform: none;             
   }
   
   .error {
