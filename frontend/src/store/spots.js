@@ -189,8 +189,12 @@ const spotReducer = (state = initialState, action) => {
           spot.id === action.payload.id ? action.payload : spot
         ),
       };
-    case SET_USER_SPOTS:
-      return { userSpots: action.payload.Spots || action.payload };
+      case SET_USER_SPOTS:
+        return {
+          ...state,
+          userSpots: action.payload.Spots || action.payload,
+        };
+      
     case DELETE_SPOT:
       return {
         ...state,
