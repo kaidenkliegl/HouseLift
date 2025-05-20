@@ -59,6 +59,10 @@
   width: 30px;
   padding: 5px;
 }
+.demo-btn{
+  background-color: transparent;
+  
+}
 
 .user-Letter {
   font-size: 30px;

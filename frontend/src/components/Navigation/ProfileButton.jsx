@@ -42,6 +42,13 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
+  const handleDemoUser = () => {
+    dispatch(
+      sessionActions.login({ credential: "demo@user.io", password: "password" })
+    );
+    setShowMenu(false);
+  };
+
   return (
     <>
       <button onClick={toggleMenu} className="profile-btn">
@@ -93,6 +100,9 @@ function ProfileButton({ user }) {
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
+            </li>
+            <li>
+              <button className="demo-btn" onClick={handleDemoUser}>Login with demo user</button>
             </li>
           </>
         )}
