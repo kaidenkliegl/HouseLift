@@ -14,6 +14,11 @@ const UPDATE_SPOT = "spot/updateSpot";
 
 const DISMOUNT_SPOT = "spots/dismountSpot";
 
+const REMOVE_IMAGE_FROM_SPOT = "spot/removeImageFromSpot";
+
+const ADD_IMAGE_TO_SPOT = "spot/addImageToSpot";
+
+
 const setSpots = (spots) => {
   return {
     type: SET_SPOTS,
@@ -55,6 +60,16 @@ const updateSpot = (spot) => {
     payload: spot,
   };
 };
+
+const removeImageFromSpot = (imageId) => ({
+    type: REMOVE_IMAGE_FROM_SPOT,
+    payload: imageId,
+  });
+  
+  const addImageToSpot = (image) => ({
+    type: ADD_IMAGE_TO_SPOT,
+    payload: image,
+  });
 
 export const dismountSpot = () => {
   return {
@@ -131,6 +146,32 @@ export const editSpot = (spotId, spotInfo) => async (dispatch) => {
   return updatedSpot
 };
 
+export const deleteSpotImage = (imageId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spot-images/${imageId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(removeImageFromSpot(imageId));
+      return true;
+    }
+    return false;
+  };
+  
+  export const addSpotImage = (spotId, image) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(image),
+    });
+  
+    if (response.ok) {
+      const newImage = await response.json();
+      dispatch(addImageToSpot(newImage));
+      return newImage;
+    }
+    return null;
+  };
+
 const initialState = { allSpots: [], singleSpot: null, userSpots: null };
 
 //reducer to set the state
@@ -155,6 +196,31 @@ const spotReducer = (state = initialState, action) => {
         ...state,
         userSpots: state.userSpots.filter((spot) => spot.id !== action.payload),
       };
+      case REMOVE_IMAGE_FROM_SPOT: {
+        if (!state.singleSpot) return state;
+        const filteredImages = state.singleSpot.SpotImages.filter(
+          (img) => img.id !== action.payload
+        );
+        return {
+          ...state,
+          singleSpot: {
+            ...state.singleSpot,
+            SpotImages: filteredImages,
+          },
+        };
+      }
+      
+      case ADD_IMAGE_TO_SPOT: {
+        if (!state.singleSpot) return state;
+        return {
+          ...state,
+          singleSpot: {
+            ...state.singleSpot,
+            SpotImages: [...state.singleSpot.SpotImages, action.payload],
+          },
+        };
+      }
+
     case DISMOUNT_SPOT:
       return {
         ...state,

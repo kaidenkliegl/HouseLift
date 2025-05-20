@@ -48,8 +48,7 @@ function EditSpot() {
           url: img.url,
           preview: img.preview || false,
         }));
-     
-      
+
         const filledImages = [
           ...imageObjs,
           ...Array(5 - imageObjs.length).fill({ url: "", preview: false }),
@@ -60,15 +59,21 @@ function EditSpot() {
   }, [spot]);
 
   const handleImageChange = (index, field, value) => {
-    const newImages = [...images];
-    if (field === "preview") {
-      newImages.forEach((img, i) => {
-        img.preview = i === index;
-      });
-    } else if (field === "url") {
-      newImages[index].url = value;
-    }
-    setImages(newImages);
+    const updatedImages = images.map((image, i) => {
+      if (field === "preview") {
+        if (i === index) {
+          return { ...image, preview: true };
+        } else {
+          return { ...image, preview: false };
+        }
+      }
+      if (field === "url" && i === index) {
+        return { ...image, url: value };
+      }
+  
+      return image;
+    });
+    setImages(updatedImages);
   };
 
   const handleSubmit = async (e) => {
@@ -76,8 +81,9 @@ function EditSpot() {
 
     const filteredImages = images.filter((img) => img.url.trim() !== "");
 
+    const oldImageIds = spot?.SpotImages?.map((img) => img.id) || [];
+
     const updatedSpot = {
-      id,
       country,
       address,
       city,
@@ -86,6 +92,7 @@ function EditSpot() {
       name,
       price: parseFloat(price),
       images: filteredImages,
+      oldImageIds,
     };
 
     const result = await dispatch(editSpot(id, updatedSpot));
@@ -102,7 +109,10 @@ function EditSpot() {
       {page === 1 && (
         <div className="form-section-div">
           <h2>Where&apos;s your place located?</h2>
-          <p>Guests will only get the exact address once they booked a reservation.</p>
+          <p>
+            Guests will only get the exact address once they booked a
+            reservation.
+          </p>
           <div className="input-label-div">
             <label htmlFor="country">Country</label>
             <input
@@ -149,7 +159,11 @@ function EditSpot() {
               />
             </div>
           </div>
-          <button className="next-btn" onClick={nextPage} disabled={!isPage1Valid}>
+          <button
+            className="next-btn"
+            onClick={nextPage}
+            disabled={!isPage1Valid}
+          >
             Next
           </button>
         </div>
@@ -158,9 +172,12 @@ function EditSpot() {
       {page === 2 && (
         <div className="form-section-div">
           <div className="input-label-div">
-            <label htmlFor="description">Describe your place to your guests</label>
+            <label htmlFor="description">
+              Describe your place to your guests
+            </label>
             <p>
-              Mention the best features of your space and any special ammenities like fast wifi or parking.
+              Mention the best features of your space and any special ammenities
+              like fast wifi or parking.
             </p>
             <textarea
               id="description"
@@ -173,7 +190,10 @@ function EditSpot() {
           </div>
           <div className="input-label-div">
             <label htmlFor="name">Create a title for your spot</label>
-            <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
+            <p>
+              Catch guests&apos; attention with a spot title that highlights
+              what makes your place special.
+            </p>
             <input
               id="name"
               type="text"
@@ -185,7 +205,10 @@ function EditSpot() {
           </div>
           <div className="input-label-div spot-price-div">
             <label htmlFor="price">Set a base price for your spot</label>
-            <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+            <p>
+              Competitive pricing can help your listing stand out and rank
+              higher in search results.
+            </p>
             <input
               id="price"
               type="number"
@@ -196,8 +219,14 @@ function EditSpot() {
             />
           </div>
           <div className="btn-box">
-            <button className="back-btn" onClick={previousPage}>Back</button>
-            <button className="next-btn" onClick={nextPage} disabled={!isPage2Valid}>
+            <button className="back-btn" onClick={previousPage}>
+              Back
+            </button>
+            <button
+              className="next-btn"
+              onClick={nextPage}
+              disabled={!isPage2Valid}
+            >
               Next
             </button>
           </div>
@@ -214,7 +243,9 @@ function EditSpot() {
                 id={`image-${index}`}
                 type="url"
                 value={img.url}
-                onChange={(e) => handleImageChange(index, "url", e.target.value)}
+                onChange={(e) =>
+                  handleImageChange(index, "url", e.target.value)
+                }
                 placeholder="Image URL"
               />
               <label>
@@ -229,7 +260,6 @@ function EditSpot() {
               {img.url && (
                 <img
                   src={img.url}
-                  alt={`Preview ${index + 1}`}
                   style={{ width: "100px", marginTop: "5px" }}
                 />
               )}
