@@ -13,6 +13,16 @@
   border-radius: 20px;
   background-color: white;
   box-shadow: 0 0 20px rgba(88, 59, 235, 0.2);
+
+}
+.home-btn{
+  font-size: 30px;
+}
+.create-listing-btn{
+  color: rgb(88, 88, 249);
+}
+.create-listing-btn:hover{
+  color: rgb(10, 10, 91);
 }
 .home-nav {
   padding: 1vh 2vw;

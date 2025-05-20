@@ -19,6 +19,10 @@
   border-radius: 10px;
  
 }
+
+.manage-link{
+  text-decoration: underline;
+}
 .profile-dropdown li,
 .profile-dropdown li button {
   max-width: 100%;

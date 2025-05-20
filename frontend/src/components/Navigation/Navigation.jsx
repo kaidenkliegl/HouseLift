@@ -16,12 +16,12 @@ function Navigation({ isLoaded }) {
   return (
     <ul className={isHome ? "navBar home-nav" : "navBar standard-nav"}>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/"className='home-btn'>Stayo</NavLink>
       </li>
       {isLoaded && (
         <>
           <li className="nav-items-inline">
-            {sessionUser && <Link to="/spots/new">Create New Listing</Link>}
+            {sessionUser && <Link to="/spots/new" className="create-listing-btn">Create New Listing</Link>}
 
             <ProfileButton user={sessionUser} />
           </li>

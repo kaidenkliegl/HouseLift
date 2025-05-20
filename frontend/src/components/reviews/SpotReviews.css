@@ -6,7 +6,7 @@
   
 
   .review-btn{
-    background-color: #f1469c;
+    background-color: #3645eb;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -16,8 +16,8 @@
   }
 
   .review-btn:hover{
-    background-color: #a60857;
-  color: rgb(133, 112, 236);
+    background-color: #130558;
+  color: rgb(242, 245, 247);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
