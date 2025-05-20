@@ -18,8 +18,8 @@ module.exports = {
         country: 'USA',
         lat: 34.052235,
         lng: -118.243683,
-        name: 'Downtown LA Loft',
-        description: 'A cozy loft in the heart of downtown LA.',
+        name: 'Outskirt house living',
+        description: 'A cozy loft in the heart of outskirts LA.',
         price: 150.00,
         createdAt: new Date(),
         updatedAt: new Date()
