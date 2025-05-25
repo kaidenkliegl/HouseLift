@@ -114,7 +114,6 @@ const ValidateQueryFilters = [
 
 //get all spots
 router.get("/", ValidateQueryFilters, async (req, res) => {
-  try {
     const { page = 1, size = 20, minPrice, maxPrice, state, city } = req.query;
     let limit = parseInt(size);
     const offset = (parseInt(page) - 1) * limit;
@@ -175,16 +174,11 @@ router.get("/", ValidateQueryFilters, async (req, res) => {
     });
 
     return res.status(200).json({ Spots: formattedSpots });
-  } catch (error) {
-    console.error("Error... could not fetch spots");
-    return res.status(500).json({ message: "Error retrieving spots" });
-  }
 });
 
 //get current users spots
 router.get("/current", requireAuth, async (req, res) => {
   //used the requuireAuth middleware imported
-  try {
     const userId = req.user.id;
     const spots = await Spot.findAll({
       where: { ownerId: userId },
@@ -234,15 +228,10 @@ router.get("/current", requireAuth, async (req, res) => {
     });
 
     return res.status(200).json({ Spots: formattedSpots });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Error retrieving spots" });
-  }
 });
 
 //getting a spot from an id
 router.get("/:id", async (req, res) => {
-  try {
     const { id } = req.params;
     const numReviews = await Review.count({ where: { spotId: id } });
     const totalStars = await Review.sum("stars", { where: { spotId: id } });
@@ -288,15 +277,10 @@ router.get("/:id", async (req, res) => {
       Owner: spot.Owner,
       previewImage,
     });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Error retrieving spot from id" });
-  }
 });
 
 //creating a new spot
 router.post("/", requireAuth, validateSpot, async (req, res) => {
-  try {
     const {
       address,
       city,
@@ -325,17 +309,14 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     });
 
     return res.status(201).json(newSpot);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Could not create a new Spot" });
-  }
 });
+
+
 //deleting a spot 
 router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  try {
     const spot = await Spot.findByPk(id);
 
     if (!spot) return res.status(404).json({ message: "Spot not found" });
@@ -350,16 +331,11 @@ router.delete("/:id", requireAuth, async (req, res) => {
     await spot.destroy();
 
     return res.status(200).json({ message: "Spot successfully deleted" });
-  } catch (error) {
-    console.error("Could not delete spot, Error: ", error);
-    return res.status(500).json({ message: "Server error" });
-  }
 });
 
 
 //add an image to the spot by spot id in params
 router.post("/:id/images", requireAuth, async (req, res) => {
-  try {
     const { id } = req.params;
     const userId = req.user.id;
     const { url, preview } = req.body;
@@ -383,15 +359,10 @@ router.post("/:id/images", requireAuth, async (req, res) => {
       url: image.url,
       preview: image.preview,
     });
-  } catch (error) {
-    console.error("Could not add Image.", error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
 });
 
 //edit a spot
 router.put("/:id", requireAuth, validateSpot, async (req, res) => {
-  try {
     const { id } = req.params;
     const userId = req.user.id;
     const {
@@ -447,10 +418,7 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
     return res
       .status(200)
       .json({ ...spot.toJSON(), SpotImages: updatedImages });
-  } catch (error) {
-    console.error("Error updating spot: ", error);
-    res.status(500).json({ message: "Server error" });
-  }
+
 });
 
 //add review
@@ -462,7 +430,6 @@ router.post(
     const { spotId } = req.params;
     const userId = req.user.id;
     const { review, stars } = req.body;
-    try {
       const spot = await Spot.findByPk(spotId);
       if (!spot) return res.status(404).json({ message: "Spot not found" });
       if (spot.ownerId === userId) {
@@ -495,10 +462,6 @@ router.post(
       });
 
       return res.status(201).json(reviewWithUser);
-    } catch (error) {
-      console.error("Error creating a review:", error);
-      return res.status(500).json({ message: "Server error" });
-    }
   }
 );
 
