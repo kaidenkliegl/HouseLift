@@ -15,7 +15,6 @@ const { Op, Model, where } = require("sequelize");
 
 //get all reviews of current user
 router.get("/current", requireAuth, async (req, res) => {
-  try {
     const userId = req.user.id;
     const reviews = await Review.findAll({
       where: { userId },
@@ -49,15 +48,10 @@ router.get("/current", requireAuth, async (req, res) => {
     }
 
     return res.status(200).json({ Reviews: formattedReviews });
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
-    res.status(500).json({ message: "SERVER ERROR" });
-  }
 });
 
 //add iamge to review
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
-  try {
     const { reviewId } = req.params;
     const { url } = req.body;
     const userId = req.user.id;
@@ -82,10 +76,6 @@ router.post("/:reviewId/images", requireAuth, async (req, res) => {
     const newImage = await ReviewImage.create({ reviewId, url });
 
     return res.status(201).json({ id: newImage.id, url: newImage.url });
-  } catch (error) {
-    console.error("Error adding review image:", error);
-    return res.status(500).json({ message: "SERVER ERROR" });
-  }
 });
 
 //edit review
