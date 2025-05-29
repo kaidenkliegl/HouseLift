@@ -1,49 +1,92 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-
+/* Navbar container */
 .navBar {
   display: flex;
   justify-content: space-between;
-  padding: 1h 2vw;
-  margin: 10px;
-  border: 0.5px solid grey;
-  border-radius: 20px;
+  align-items: center;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 20px rgba(88, 59, 235, 0.15);
+  top: 0;
+  font-family: "Arial", sans-serif;
   background-color: white;
-  box-shadow: 0 0 20px rgba(88, 59, 235, 0.2);
+}
 
+/* Home button (logo/text) */
+.home-btn {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff385c;
+  text-decoration: none;
+  letter-spacing: 1.2px;
+  transition: color 0.3s ease;
 }
-.home-btn{
-  font-size: 30px;
-}
-.create-listing-btn{
-  color: rgb(88, 88, 249);
-}
-.create-listing-btn:hover{
-  color: rgb(10, 10, 91);
-}
-.home-nav {
-  padding: 1vh 2vw;
-  position: sticky;
-  top: 10px;
-  z-index: 1;
 
+.home-btn:hover {
+  color: #e31c5f;
+  cursor: pointer;
 }
-.standard-nav {
-  margin: 1vh 10%;
-  padding: 0 80px;
-}
-.navBar li {
-  list-style-type: none;
-}
+
+/* Nav item container on right */
 .nav-items-inline {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
-/* .home{
+/* Create listing button */
+.create-listing-btn {
+  padding: 8px 18px;
+  background-color: #ff385c;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(255, 56, 92, 0.4);
+  transition: background-color 0.3s ease;
+}
 
+.create-listing-btn:hover {
+  background-color: #e31c5f;
+  cursor: pointer;
+}
+
+/* Specific nav variants */
+.home-nav {
+  position: sticky;
+  padding: 1vh 4vw 20vh 4vw;
+  background-color: #fafafa;
+  box-shadow: none;
+  z-index: 1;
+}
+
+.standard-nav {
+  margin: 0 0 1vh 0;
+  padding: 10px 50px 2vh 50px;
+}
+
+/* List items */
+.navBar li {
+  list-style-type: none;
+}
+
+/* 
+@media (max-width: 600px) {
+  .navBar {
+    flex-direction: column;
+    padding: 10px 16px;
+    margin: 10px 3vw;
+  }
+  .nav-items-inline {
+    justify-content: flex-end;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+  }
 } */

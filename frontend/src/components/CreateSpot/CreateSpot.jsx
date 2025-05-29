@@ -118,7 +118,7 @@ function CreateSpot() {
             />
           </div>
           <div className="input-label-div city-state-div">
-            <div className="input-group">
+            <div className="input-group city-child-1" >
               <label htmlFor="city">City</label>
               <input
                 id="city"
@@ -129,7 +129,7 @@ function CreateSpot() {
                 required
               />
             </div>
-            <div className="input-group">
+            <div className="input-group state-child-2">
               <label htmlFor="state">State</label>
               <input
                 id="state"

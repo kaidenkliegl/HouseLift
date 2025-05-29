@@ -5,6 +5,7 @@ import { retreiveSpotByID } from "../../store/spots";
 import SpotReviews from "../reviews/SpotReviews";
 import SpotImages from "./SpotImages";
 import { dismountSpot } from "../../store/spots";
+import ImagesModal from "./ImagesModal";
 import "./SpotPage.css";
 
 function SpotPage() {
@@ -23,7 +24,8 @@ function SpotPage() {
 
   if (spot) {
     return (
-      <>
+      <div className="spotpage-container">
+
       <h2 className="spot-name">{spot.name}</h2>
         <div className="spot-header">
           
@@ -68,8 +70,6 @@ function SpotPage() {
               {spot.avgStarRating ? (
                 <div className="star-rating">
                   <img
-                    width="50"
-                    height="50"
                     src="https://img.icons8.com/ios-filled/50/star--v1.png"
                     alt="star--v1"
                   />
@@ -87,7 +87,7 @@ function SpotPage() {
             </button>
           </div>
         </div>
-      </>
+        </div>
     );
   } else {
     return <h1>Loading....</h1>;

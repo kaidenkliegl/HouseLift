@@ -3,7 +3,7 @@
 }
 
 form {
-  max-width: 400px;
+  max-width: 500px;
   margin: 6rem auto;
   padding: 1.5rem 2rem;
   background: #f3f1f1;
@@ -37,6 +37,14 @@ form {
   margin-bottom: 20px;
   flex-direction: row;
 }
+/* .city-child-1 {
+   
+  } */
+  
+  .state-child-2 {
+   max-width: 120px;
+  }
+ 
 
 .input-group {
   flex: 1;
