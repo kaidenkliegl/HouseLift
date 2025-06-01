@@ -33,6 +33,12 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .withMessage("Valid country required."),
 
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage("Name is required.")
+    .isLength({ max: 50 })
+    .withMessage("Name must not exceed 50 characters."),
+
   check("lat")
     .optional()
     .isFloat({ min: -90, max: 90 })
@@ -408,27 +414,27 @@ router.put("/:id", requireAuth, validateSpot, async (req, res) => {
 //get all reviews by spotId
 
 router.get("/:spotId/reviews", async (req, res) => {
-  const {spotId} = req.params;
+  const { spotId } = req.params;
   const spot = await Spot.findByPk(spotId);
-  if(!spot){
-    return res.status(404).json({message:"Spot not found!"})
+  if (!spot) {
+    return res.status(404).json({ message: "Spot not found!" });
   }
 
   const spotReviews = await Review.findAll({
-    where:{spotId},
-    include:[
+    where: { spotId },
+    include: [
       {
-        model:User,
-        attributes:["id","firstName", "lastName"],
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
       },
       {
-        model:ReviewImage,
-        attributes:['id','url']
-      }
-    ]
-  })
+        model: ReviewImage,
+        attributes: ["id", "url"],
+      },
+    ],
+  });
 
-  return res.status(200).json({Reviews:spotReviews})
+  return res.status(200).json({ Reviews: spotReviews });
 });
 
 //add review

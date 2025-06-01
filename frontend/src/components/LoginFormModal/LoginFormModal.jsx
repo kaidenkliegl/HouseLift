@@ -29,7 +29,7 @@ function LoginFormModal() {
     <form onSubmit={handleSubmit} className="loginForm">
       <h1 className="formItem">Log In</h1>
       <br />
-      {errors && <p className="error-text">{errors.message}</p>}
+      {errors && <p className="error-text errors">{errors.message}</p>}
       <input
         type="text"
         placeholder="Username or Email"
@@ -48,7 +48,7 @@ function LoginFormModal() {
         className="formItem"
       />
 
-      {errors.credential && <p>{errors.credential}</p>}
+      {errors.credential && <p className="errors">{errors.credential}</p>}
       <button type="submit" className="formItem" disabled={password.length < 6 || credential < 4}
       >
         Log In

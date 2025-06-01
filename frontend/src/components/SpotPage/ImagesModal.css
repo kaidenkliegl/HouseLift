@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-#modal-background {
+#modal-images-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -31,7 +31,6 @@
   padding: 20px;
   border-radius: 8px;
   animation: modalContent 0.5s ease forwards;
-  z-index: 10001;
 
 }
 #modal-header {
@@ -52,7 +51,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-#modal-content button {
+#close-modal-btn {
   background-color: transparent;
   border: none;
 }

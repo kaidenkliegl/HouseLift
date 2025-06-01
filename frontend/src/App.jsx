@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateSpot from "./components/CreateSpot";
 import ManageSpots from "./components/ManageSpots";
 import EditSpot from "./components/ManageSpots/EditForm";
+import './index.css'
 
 function Layout() {
   const dispatch = useDispatch();

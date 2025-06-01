@@ -12,18 +12,41 @@
     width: 110%;
     background-color: white;
 }
+
+.signup-back-btn{
+ background-color: transparent;
+ height: 60px;
+ width: 60px;
+ border: none;
+ margin-right:83%;
+
+}
+.signUpForm label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
+    width:350px;
+  }
 .signUpForm input,
-.signUpForm button {
+.signup-btn {
     width: 100%;         
     padding: 10px;       
     font-size: 1rem;      
     box-sizing: border-box; 
     margin: 10px 0;
   }
-  .signUpForm label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 10px;
-    width: 100%;
+  .signup-btn {
+    width: 350px;         
+    padding: 10px;       
+    font-size: 1rem;      
+    box-sizing: border-box; 
+    margin: 10px 0;
   }
+
+  .signUpForm p {
+    width: 350px;
+  }
+
+
+  

@@ -21,11 +21,11 @@ function ImagesModal({ images, scrollToId }) {
 
 
   return (
-    <div id="modal-background">
+    <div id="modal-images-background">
       <div id="images-modal-content">
         {" "}
         <div id="modal-header">
-          <button className="close-modal" onClick={closeModal}>
+          <button id="close-modal-btn" onClick={closeModal}>
           <img src="https://img.icons8.com/ios-filled/50/back.png" alt="back" className="exit-modal"/>
           </button>
         </div>

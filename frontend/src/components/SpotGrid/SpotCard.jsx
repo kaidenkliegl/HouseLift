@@ -5,8 +5,9 @@ import "./SpotCard.css";
 function SpotCard({ spot }) {
   return (
     <Link to={`/spots/${spot.id}`}>
-      <img src={spot.previewImage} alt="" className="spotImage" />
-     
+      <div className="card-container">
+        <img src={spot.previewImage} alt="" className="spotImage" />
+
         <div className="location-star-rating-div">
           <h3 className="spotInfo spotCity">{spot.city + ", " + spot.state}</h3>{" "}
           {spot.avgStarRating ? (
@@ -25,7 +26,7 @@ function SpotCard({ spot }) {
         </div>
 
         <h4 className="spotPrice">${Number(spot.price).toFixed(2)}/night</h4>
-      
+      </div>
     </Link>
   );
 }

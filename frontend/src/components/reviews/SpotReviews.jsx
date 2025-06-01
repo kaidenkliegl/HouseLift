@@ -7,8 +7,6 @@ import OpenModalButton from "../OpenModalButton";
 import { retreiveSpotByID } from "../../store/spots";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
 
-
-
 function SpotReviews({ spotId, price }) {
   const dispatch = useDispatch();
   const reviewsState = useSelector((state) => state.reviews);
@@ -23,38 +21,39 @@ function SpotReviews({ spotId, price }) {
 
   useEffect(() => {
     dispatch(fetchReviews(spotId, price));
-  }, [dispatch, spotId,price]);
+  }, [dispatch, spotId, price]);
 
   return (
     <div className="spotReviews">
-  <h3 id="review-header">Reviews</h3>
-  <div className="review-count-div">
-    {spot.numReviews > 0 ? (
-      <>
-        <h4>
-          {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
-        </h4>
-        <div className="star-rating">
-          <img
-            id="rating-dot"
-            src="https://img.icons8.com/material-sharp/24/full-stop.png"
-            alt="full-stop"
-          />
-          <img
-            width="50"
-            height="50"
-            src="https://img.icons8.com/ios-filled/50/star--v1.png"
-            alt="star--v1"
-          />
-          <p className="spotInfo starRating">{spot.avgStarRating}</p>
+      <div className="review-header-section">
+        <h3 id="review-title">Reviews</h3>
+        <h3 id="review-header">Discover what others think</h3>
+        <div className="review-count-div">
+          {spot.numReviews > 0 ? (
+            <>
+              <h4>
+                {spot.numReviews} {spot.numReviews === 1 ? "Review" : "Reviews"}
+              </h4>
+              <div className="star-rating">
+                <img
+                  id="rating-dot"
+                  src="https://img.icons8.com/material-sharp/24/full-stop.png"
+                  alt="full-stop"
+                />
+                <img
+                  width="50"
+                  height="50"
+                  src="https://img.icons8.com/ios-filled/50/star--v1.png"
+                  alt="star--v1"
+                />
+                <p className="spotInfo starRating">{spot.avgStarRating}</p>
+              </div>
+            </>
+          ) : (
+            <h4>New</h4>
+          )}
         </div>
-      </>
-    ) : (
-      <h4>New</h4>
-    )}
-  </div>
-
-
+      
 
       {currentUser && currentUser.id !== spot.ownerId && (
         <OpenModalButton
@@ -70,11 +69,11 @@ function SpotReviews({ spotId, price }) {
           }
         />
       )}
-
+</div>
       {spotReviews.length === 0 ? (
         <p>Be the first to leave a review!</p>
       ) : (
-        <ul>
+        <ul id="review-grid">
           {spotReviews.map((spotReview) => {
             const date = new Date(spotReview.createdAt);
             const monthYear = date.toLocaleString("default", {
@@ -83,18 +82,16 @@ function SpotReviews({ spotId, price }) {
             });
 
             return (
-              <li key={spotReview.id}>
+              <li className="review-card" key={spotReview.id}>
                 <h3>
-                  {spotReview.User?.firstName} {spotReview.User?.lastName}
+                  <strong>{spotReview.User?.firstName}</strong>
                 </h3>
-                <p>{monthYear}</p>
-                <p>{spotReview.review}</p>
+                <p className="review-date">{monthYear}</p>
+                <p className="review-text">{spotReview.review}</p>
                 {currentUser?.id === spotReview.userId && (
-                  // <button onClick={() => handleDelete(spotReview.id)}>
-                  //   Delete Review
-                  // </button>
                   <OpenModalButton
                     buttonText="Delete"
+                    className="delete-btn"
                     modalComponent={
                       <DeleteReviewModal
                         spot={spot}

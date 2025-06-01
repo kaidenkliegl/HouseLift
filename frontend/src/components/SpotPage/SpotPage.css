@@ -1,25 +1,24 @@
-
 .spotpage-container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px; 
-    box-sizing: border-box;
-  }
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
 .spot-header {
-display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 1vh auto;
 }
 .spot-name {
-    margin-top: 3vh;
-    margin-bottom: 1.5vh;
-    font-size: 32px;
-  }
-.spot-description{
-    padding-top: 20px;
-    overflow-wrap: break-word;
+  margin-top: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 32px;
+}
+.spot-description {
+  padding-top: 20px;
+  overflow-wrap: break-word;
 }
 .share-like-btns {
   display: flex;
@@ -56,9 +55,9 @@ display: flex;
   gap: 2rem;
 }
 .spotpage-main-div > div:first-child {
-    flex: 2;
-    min-width: 300px;
-  }
+  flex: 2;
+  min-width: 300px;
+}
 .reserve-btn-box {
   position: sticky;
   flex: 1;
@@ -82,6 +81,7 @@ display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 .price-and-stars img {
   margin: 0 0 0 15px;
 }
@@ -91,21 +91,26 @@ display: flex;
   color: black;
   font-size: 18px;
 }
+.spot-reviews-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
 .reserve-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #ff385c;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.2s ease;
-  }
+  width: 100%;
+  padding: 12px;
+  background-color: #ff385c;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
 
 .reserve-btn:hover {
-    background-color: #e31c5f;
+  background-color: #e31c5f;
 }

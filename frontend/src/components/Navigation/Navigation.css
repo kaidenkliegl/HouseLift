@@ -1,11 +1,5 @@
 /* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-/* Navbar container */
 .navBar {
   display: flex;
   justify-content: space-between;
@@ -13,11 +7,9 @@
   border: 1px solid #ddd;
   box-shadow: 0 0 20px rgba(88, 59, 235, 0.15);
   top: 0;
-  font-family: "Arial", sans-serif;
   background-color: white;
 }
 
-/* Home button (logo/text) */
 .home-btn {
   font-size: 28px;
   font-weight: 700;
@@ -30,63 +22,101 @@
 .home-btn:hover {
   color: #e31c5f;
   cursor: pointer;
+  animation: shake 0.5s ease-in-out forwards;
 }
 
-/* Nav item container on right */
 .nav-items-inline {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* Create listing button */
 .create-listing-btn {
-  padding: 8px 18px;
-  background-color: #ff385c;
-  color: white;
-  border-radius: 9999px;
-  font-weight: 600;
   font-size: 15px;
-  text-decoration: none;
-  box-shadow: 0 2px 5px rgba(255, 56, 92, 0.4);
-  transition: background-color 0.3s ease;
+  background-color: transparent;
+  padding: 5px;
+  color: #5d5b5b;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(172, 165, 166, 0.4);
+  transition: box-shadow 0.3s ease;
 }
 
 .create-listing-btn:hover {
-  background-color: #e31c5f;
+  background-color: #ddd;
+  cursor: pointer;
+}
+.create-listing-btn:active {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
-/* Specific nav variants */
 .home-nav {
-  position: sticky;
-  padding: 1vh 4vw 20vh 4vw;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: 200px;
+  padding: 1.5rem;
   background-color: #fafafa;
   box-shadow: none;
-  z-index: 1;
+  transition: height 0.2s ease, padding 0.3s ease;
 }
+.home-nav.scrolled {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 10px 50px 2vh 50px;
+  z-index: 1000;
+  height: 70px;
+}
+
+.home-nav > :nth-child(3) {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+ 
+}
+.search-bar{
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 20px;
+  background-color: rgb(248, 244, 244);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.home-nav input {
+  padding: 1rem;
+  width: 150px;
+  border: none;
+  background-color: transparent;
+}
+.home-nav input:hover {
+ background-color: rgb(236, 229, 229);
+ border-radius: 25px;
+ text-decoration: none;
+}
+.home-nav input:focus{
+  outline: none;
+ }
 
 .standard-nav {
   margin: 0 0 1vh 0;
   padding: 10px 50px 2vh 50px;
 }
 
-/* List items */
-.navBar li {
-  list-style-type: none;
+@keyframes shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
 }
-
-/* 
-@media (max-width: 600px) {
-  .navBar {
-    flex-direction: column;
-    padding: 10px 16px;
-    margin: 10px 3vw;
-  }
-  .nav-items-inline {
-    justify-content: flex-end;
-    gap: 12px;
-    width: 100%;
-    margin-top: 10px;
-  }
-} */
