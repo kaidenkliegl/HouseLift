@@ -8,7 +8,6 @@ import SignupFormModal from "../SignUpFormModal";
 import { NavLink } from "react-router-dom";
 import "./ProfileButton.css";
 
-
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -72,12 +71,17 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
 
             <li>
-              <NavLink to="/spots/current" onClick={() => closeMenu()} className='manage-link'>
+              <NavLink
+                to="/spots/current"
+                onClick={() => closeMenu()}
+                className="manage-link"
+              >
                 Manage Spots
               </NavLink>
             </li>
             <li>
               <button
+              className="log-out-btn"
                 onClick={(e) => {
                   logout(e);
                   setShowMenu(false);
@@ -91,18 +95,22 @@ function ProfileButton({ user }) {
           <>
             <li>
               <OpenModalButton
+                className={"login-signup"}
                 buttonText="Log In"
                 modalComponent={<LoginFormModal />}
               />
             </li>
             <li>
               <OpenModalButton
+                className={"login-signup"}
                 buttonText="Sign Up"
                 modalComponent={<SignupFormModal />}
               />
             </li>
             <li>
-              <button className="demo-btn" onClick={handleDemoUser}>Login with demo user</button>
+              <button className="demo-btn" onClick={handleDemoUser}>
+                Login with demo user
+              </button>
             </li>
           </>
         )}

@@ -24,32 +24,45 @@ function LoginFormModal() {
       });
   };
 
-
   return (
     <form onSubmit={handleSubmit} className="loginForm">
-      <h1 className="formItem">Log In</h1>
-      <br />
-      {errors && <p className="error-text errors">{errors.message}</p>}
-      <input
-        type="text"
-        placeholder="Username or Email"
-        value={credential}
-        onChange={(e) => setCredential(e.target.value)}
-        required
-        className="formItem"
-      />
+       <button className="login-back-btn close-modal-btn" onClick={closeModal}>
+    <img
+      src="https://img.icons8.com/ios-filled/50/back.png"
+      alt="back"
+      className="exit-modal"
+    />
+    </button>
+      <h1>Log In</h1>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        className="formItem"
-      />
+      {errors && <p className="errors">{errors.message}</p>}
+
+      <label>
+        Username or Email
+        <input
+          type="text"
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Password
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </label>
 
       {errors.credential && <p className="errors">{errors.credential}</p>}
-      <button type="submit" className="formItem" disabled={password.length < 6 || credential < 4}
+
+      <button
+        type="submit"
+        className="login-btn"
+        disabled={password.length < 6 || credential.length < 4}
       >
         Log In
       </button>

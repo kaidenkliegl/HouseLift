@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteUserSpot, retreiveUserSpots } from "../../store/spots";
-import MySpot from "./MySpot";
+// import MySpot from "./MySpot";
+import SpotCard from "../SpotCard";
 import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "./DeleteModal";
@@ -34,15 +35,16 @@ function ManageSpots() {
           <div className="spotGrid">
             {currentSpots?.map((spot) => (
               <div key={spot.id}>
-                <MySpot spot={spot} />
+                <SpotCard spot={spot} />
                 <OpenModalButton
+                  className={"delete-spot manage-spot-button"}
                   buttonText="Delete"
                   modalComponent={
                     <DeleteModal spot={spot} func={handleDelete} />
                   }
                 />
                 <Link to={`/spots/${spot.id}/edit`}>
-                  <button>Update</button>
+                  <button className={"update-spot manage-spot-button"}>Update</button>
                 </Link>
               </div>
             ))}
