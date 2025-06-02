@@ -5,6 +5,7 @@ import { retreiveSpotByID } from "../../store/spots";
 import SpotReviews from "../reviews/SpotReviews";
 import SpotImages from "./SpotImages";
 import { dismountSpot } from "../../store/spots";
+import ImagesModal from "./ImagesModal";
 import "./SpotPage.css";
 
 function SpotPage() {
@@ -19,14 +20,14 @@ function SpotPage() {
 
   useEffect(() => {
     dispatch(dismountSpot());
-  }, [dispatch,location]);
+  }, [dispatch, location]);
 
   if (spot) {
-    return (
-      <>
-      <h2 className="spot-name">{spot.name}</h2>
+    return (<>
+    
+      <div className="spotpage-container">
+        <h2 className="spot-name">{spot.name}</h2>
         <div className="spot-header">
-          
           <p>{spot.city + ", " + spot.state + ", " + spot.country}</p>
           <div className="share-like-btns">
             <button className="share-btn">
@@ -52,24 +53,19 @@ function SpotPage() {
         <SpotImages spot={spot}></SpotImages>
 
         <div className="spotpage-main-div">
-          <div>
+          <div className="spot-content">
             <h2>
               Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
             </h2>
             <p className="spot-description">{spot.description}</p>
-            <br />
             <hr />
-            <br />
-            <SpotReviews spotId={id} price={Number(spot.price).toFixed(2)} className="reviews" />
           </div>
           <div className="reserve-btn-box">
             <div className="price-and-stars">
-              <h4 className="price">${spot.price} night</h4>
+              <h4 className="price">${Number(spot.price).toFixed(2)} night</h4>
               {spot.avgStarRating ? (
                 <div className="star-rating">
                   <img
-                    width="50"
-                    height="50"
                     src="https://img.icons8.com/ios-filled/50/star--v1.png"
                     alt="star--v1"
                   />
@@ -87,8 +83,18 @@ function SpotPage() {
             </button>
           </div>
         </div>
-      </>
+      </div>
+      <div className="spot-reviews-section">
+        <SpotReviews
+          spotId={id}
+          price={Number(spot.price).toFixed(2)}
+          className="reviews"
+        />
+      </div>
+
+    </>
     );
+    
   } else {
     return <h1>Loading....</h1>;
   }

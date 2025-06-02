@@ -18,7 +18,6 @@ const { reviewValidation } = require("../../utils/validation.js");
 router.delete("/:imageId", requireAuth, async (req, res) => {
   const { imageId } = req.params;
   const userId = req.user.id;
-  try {
     const image = await SpotImage.findByPk(imageId, {
       include: {
         model: Spot,
@@ -35,10 +34,6 @@ router.delete("/:imageId", requireAuth, async (req, res) => {
     await image.destroy();
 
     return res.status(200).json({ message: "Successfully deleted" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
-  }
 });
 
 module.exports = router;

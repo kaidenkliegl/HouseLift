@@ -56,6 +56,9 @@ function SignupFormModal() {
   return (
     <>
       <form onSubmit={handleSubmit} className="signUpForm">
+      <button className="signup-back-btn close-modal-btn" onClick={closeModal}>
+          <img src="https://img.icons8.com/ios-filled/50/back.png" alt="back" className="exit-modal"/>
+          </button>
         <h1>Sign Up</h1>
         <label>
           Email
@@ -64,9 +67,10 @@ function SignupFormModal() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
+          /> 
+          {errors.email && <p className="errors">{errors.email}</p>}
         </label>
-        {errors.email && <p>{errors.email}</p>}
+       
         <label>
           Username
           <input
@@ -74,10 +78,11 @@ function SignupFormModal() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-          />
+          /> 
+          {errors.username && <p>{errors.username}</p>}
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+       
+        <label> 
           First Name
           <input
             type="text"
@@ -85,8 +90,9 @@ function SignupFormModal() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
+          {errors.firstName && <p>{errors.firstName}</p>}
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        
         <label>
           Last Name
           <input
@@ -116,8 +122,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="errors">{errors.confirmPassword}</p>}
         <button
+        className="signup-btn"
           type="submit"
           disabled={completedForm || passwordIsTooShort || usernameIsTooShort}
         >

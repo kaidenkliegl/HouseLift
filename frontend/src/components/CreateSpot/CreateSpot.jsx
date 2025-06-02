@@ -3,6 +3,7 @@ import { createNewSpot } from "../../store/spots";
 import { useState } from "react";
 import "./CreateSpot.css";
 import { useNavigate } from "react-router-dom";
+import { validatePage1, validatePage2, validatePage3 } from "./ValidatePage";
 
 function CreateSpot() {
   const dispatch = useDispatch();
@@ -15,40 +16,12 @@ function CreateSpot() {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  
-  // images as objects with url + preview flag
-  const [images, setImages] = useState([
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-  ]);
 
-  const [page, setPage] = useState(1);
-  const nextPage = () => setPage((prev) => prev + 1);
-  const previousPage = () => setPage((prev) => prev - 1);
-
-  // Update url or preview in images state
-  const handleImageChange = (index, field, value) => {
-    const newImages = [...images];
-    if (field === "preview") {
-      // Set all previews false except the selected one
-      newImages.forEach((img, i) => {
-        img.preview = i === index;
-      });
-    } else if (field === "url") {
-      newImages[index].url = value;
-    }
-    setImages(newImages);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Filter out images without URL
-    const filteredImages = images.filter((img) => img.url.trim() !== "");
-
+    let pageErrors = validatePage3(images);
+    if (Object.keys(pageErrors).length > 0) return setErrors(pageErrors);
     const newSpot = await dispatch(
       createNewSpot({
         country,
@@ -58,7 +31,7 @@ function CreateSpot() {
         description,
         name,
         price,
-        images: filteredImages,
+        images,
       })
     );
 
@@ -78,25 +51,72 @@ function CreateSpot() {
         { url: "", preview: false },
         { url: "", preview: false },
       ]);
-      navigate(`/spots/current`);
+      console.log(newSpot.id);
+      navigate(`/spots/${newSpot.id}`);
     }
   };
 
-  const isPage1Valid = country && address && city && state;
-  const isPage2Valid =
-    description.length >= 30 && name !== "" && Number(price) > 0;
+  const [page, setPage] = useState(1);
+  const [errors, setErrors] = useState({});
+  const handleNextPageChange = () => {
+    let pageErrors = {};
+    if (page === 1) {
+      pageErrors = validatePage1({ country, address, city, state });
+    } else if (page === 2) {
+      pageErrors = validatePage2({ description, name, price });
+    }
+
+    if (Object.keys(pageErrors).length > 0) return setErrors(pageErrors);
+
+    setErrors({});
+    if (page < 3) {
+      setPage((state) => state + 1);
+    }
+  };
+
+  const PreviousPageChange = () => {
+    setErrors({});
+    setPage((state) => (state -= 1));
+  };
+
+  //state for images change
+  const [images, setImages] = useState([
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+  ]);
+
+  //updating the iamge in the state wheen a url is entered or a preview is selected
+  const handleImageChange = (index, field, value) => {
+    const newImages = [...images];
+    if (field === "preview") {
+      newImages.forEach((img, i) => {
+        //checking if the index of the image looping throught is teh same one that is being passed into the function
+        //if true set it as the preview
+        img.preview = i === index;
+      });
+    } else if (field === "url") {
+      newImages[index].url = value;
+    }
+    setImages(newImages);
+  };
+
 
   return (
     <form onSubmit={handleSubmit}>
       {page === 1 && (
         <div className="form-section-div">
-          <h2>Where&apos;s your place located?</h2>
+          <h2 className="form-header">Where&apos;s your place located?</h2>
           <p>
-            Guests will only get the exact address once they booked a reservation.
+            Guests will only get the exact address once they booked a
+            reservation.
           </p>
           <br />
           <div className="input-label-div">
             <label htmlFor="country">Country</label>
+            {errors.country && <p className="errors">{errors.country}</p>}
             <input
               id="country"
               type="text"
@@ -107,7 +127,8 @@ function CreateSpot() {
             />
           </div>
           <div className="input-label-div">
-            <label htmlFor="street">Street Address:</label>
+            <label htmlFor="street">Street Address:</label>{" "}
+            {errors.address && <p className="errors">{errors.address}</p>}
             <input
               id="address"
               type="text"
@@ -118,7 +139,7 @@ function CreateSpot() {
             />
           </div>
           <div className="input-label-div city-state-div">
-            <div className="input-group">
+            <div className="input-group city-child-1">
               <label htmlFor="city">City</label>
               <input
                 id="city"
@@ -128,8 +149,9 @@ function CreateSpot() {
                 onChange={(e) => setCity(e.target.value)}
                 required
               />
+              {errors.city && <p className="errors">{errors.city}</p>}
             </div>
-            <div className="input-group">
+            <div className="input-group state-child-2">
               <label htmlFor="state">State</label>
               <input
                 id="state"
@@ -139,9 +161,10 @@ function CreateSpot() {
                 onChange={(e) => setState(e.target.value)}
                 required
               />
+              {errors.state && <p className="errors">{errors.state}</p>}
             </div>
           </div>
-          <button className="next-btn" onClick={nextPage} disabled={!isPage1Valid}>
+          <button className="next-btn" onClick={handleNextPageChange}>
             Next
           </button>
         </div>
@@ -150,10 +173,16 @@ function CreateSpot() {
       {page === 2 && (
         <div className="form-section-div">
           <div className="input-label-div">
-            <label htmlFor="description">Describe your place to your guests</label>
+            <label htmlFor="description">
+              Describe your place to your guests
+            </label>
             <p>
-              Mention the best features of your space and any special ammenities like fast wifi or parking.
+              Mention the best features of your space and any special ammenities
+              like fast wifi or parking.
             </p>
+            {errors.description && (
+              <p className="errors">{errors.description}</p>
+            )}
             <textarea
               id="description"
               value={description}
@@ -163,11 +192,14 @@ function CreateSpot() {
               required
             />
           </div>
+
           <div className="input-label-div">
             <label htmlFor="name">Create a title for your spot</label>
             <p>
-              Catch guests&apos; attention with a spot title that highlights what makes your place special.
+              Catch guests&apos; attention with a spot title that highlights
+              what makes your place special.
             </p>
+            {errors.name && <p className="errors">{errors.name}</p>}
             <input
               id="name"
               type="text"
@@ -177,11 +209,14 @@ function CreateSpot() {
               required
             />
           </div>
+
           <div className="input-label-div spot-price-div">
             <label htmlFor="price">Set a base price for your spot</label>
             <p>
-              Competitive pricing can help your listing stand out and rank higher in search results.
+              Competitive pricing can help your listing stand out and rank
+              higher in search results.
             </p>
+            {errors.price && <p className="errors">{errors.price}</p>}
             <input
               id="price"
               type="number"
@@ -191,11 +226,12 @@ function CreateSpot() {
               required
             />
           </div>
+
           <div className="btn-box">
-            <button className="back-btn" onClick={previousPage}>
+            <button className="back-btn" onClick={PreviousPageChange}>
               Back
             </button>
-            <button className="next-btn" onClick={nextPage} disabled={!isPage2Valid}>
+            <button className="next-btn" onClick={handleNextPageChange}>
               Next
             </button>
           </div>
@@ -204,15 +240,21 @@ function CreateSpot() {
 
       {page === 3 && (
         <div>
-          <h2>Upload up to 5 image URLs</h2>
+          <h2 className="form-header">Upload your image URLs</h2>
           {images.map((img, index) => (
             <div className="input-label-div" key={index}>
               <label htmlFor={`image-${index}`}>Image URL {index + 1}</label>
+              {errors[`image-${index}`] && (
+                <p className="errors">{errors[`image-${index}`]}</p>
+              )}
+
               <input
                 id={`image-${index}`}
                 type="url"
                 value={img.url}
-                onChange={(e) => handleImageChange(index, "url", e.target.value)}
+                onChange={(e) =>
+                  handleImageChange(index, "url", e.target.value)
+                }
                 placeholder="Image URL"
               />
               <label>
@@ -233,12 +275,17 @@ function CreateSpot() {
               )}
             </div>
           ))}
+
           <div className="btn-box">
-            <button className="back-btn" type="button" onClick={previousPage}>
+            <button
+              className="back-btn"
+              type="button"
+              onClick={PreviousPageChange}
+            >
               Back
             </button>
             <button className="submit-btn" type="submit">
-              Create Spot
+              Create 
             </button>
           </div>
         </div>

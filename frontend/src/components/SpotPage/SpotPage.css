@@ -1,16 +1,25 @@
+.spotpage-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  background-color:#F7F7F8 ;
+}
 .spot-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 1vh 10%;
-  padding: 0 80px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1vh auto;
 }
-.spot-name{
-    margin: 3vh 14%;
+.spot-name {
+  margin-top: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 32px;
 }
-.spot-description{
-    padding-top: 20px;
-    overflow-wrap: break-word;
+.spot-description {
+  padding-top: 20px;
+  overflow-wrap: break-word;
 }
 .share-like-btns {
   display: flex;
@@ -22,15 +31,19 @@
   display: flex;
   align-items: center;
   font-size: 16px;
+  padding: 8px;
 }
 .download-icon {
   width: 20px;
-  height: 20px;
+  height: 25px;
+  margin-right: 5px;
+  padding-bottom: 5px;
 }
 
 .like-btn {
   border: none;
   background-color: transparent;
+  margin-left: 15px;
 }
 .like-btn img {
   height: 22px;
@@ -39,16 +52,20 @@
 
 .spotpage-main-div {
   display: flex;
-  margin: 1vh 10%;
-  padding: 0 80px;
+  margin-bottom: 3rem;
+  gap: 2rem;
+  background-color: #F7F7F8;
+}
+.spotpage-main-div > div:first-child {
+  flex: 2;
+  min-width: 300px;
 }
 .reserve-btn-box {
   position: sticky;
-  display: flex;
+  flex: 1;
   flex-direction: column;
   top: 80px;
-  padding: 30px;
-  padding-bottom: 60px;
+  padding: 1.5rem;
   /* margin: 40px 0 auto 20vw; */
   margin-top: 40px;
   margin-left: auto;
@@ -56,8 +73,8 @@
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   width: 200px;
-  min-width: 200px;
-  max-height: 70px;
+  height: fit-content;
+  max-height: 300px;
   min-height: 70px;
 }
 .price-and-stars {
@@ -66,6 +83,7 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 .price-and-stars img {
   margin: 0 0 0 15px;
 }
@@ -75,20 +93,27 @@
   color: black;
   font-size: 18px;
 }
+.spot-reviews-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 500px;
+}
 
 .reserve-btn {
   width: 100%;
-  background-color: rgb(238, 49, 55);
+  padding: 12px;
+  background-color:#0077B6;
   color: white;
-  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  font-size: 16px;
   border: none;
-  border-radius: 20px;
-  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
+  margin-top: 10px;
   transition: background-color 0.2s ease;
 }
 
 .reserve-btn:hover {
-  width: 100%;
-  background-color: rgb(145, 21, 56);
+  background-color: #005F87;
 }
