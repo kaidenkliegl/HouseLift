@@ -62,7 +62,7 @@ function SpotPage() {
           </div>
           <div className="reserve-btn-box">
             <div className="price-and-stars">
-              <h4 className="price">${spot.price} night</h4>
+              <h4 className="price">${Number(spot.price).toFixed(2)} night</h4>
               {spot.avgStarRating ? (
                 <div className="star-rating">
                   <img

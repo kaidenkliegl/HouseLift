@@ -17,27 +17,6 @@ function CreateSpot() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
-  // images as objects with url + preview flag
-  const [images, setImages] = useState([
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-    { url: "", preview: false },
-  ]);
-
-  // Update url or preview in images state
-  const handleImageChange = (index, field, value) => {
-    const newImages = [...images];
-    if (field === "preview") {
-      newImages.forEach((img, i) => {
-        img.preview = i === index;
-      });
-    } else if (field === "url") {
-      newImages[index].url = value;
-    }
-    setImages(newImages);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,11 +79,36 @@ function CreateSpot() {
     setPage((state) => (state -= 1));
   };
 
+  //state for images change
+  const [images, setImages] = useState([
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+    { url: "", preview: false },
+  ]);
+
+  //updating the iamge in the state wheen a url is entered or a preview is selected
+  const handleImageChange = (index, field, value) => {
+    const newImages = [...images];
+    if (field === "preview") {
+      newImages.forEach((img, i) => {
+        //checking if the index of the image looping throught is teh same one that is being passed into the function
+        //if true set it as the preview
+        img.preview = i === index;
+      });
+    } else if (field === "url") {
+      newImages[index].url = value;
+    }
+    setImages(newImages);
+  };
+
+
   return (
     <form onSubmit={handleSubmit}>
       {page === 1 && (
         <div className="form-section-div">
-          <h2>Where&apos;s your place located?</h2>
+          <h2 className="form-header">Where&apos;s your place located?</h2>
           <p>
             Guests will only get the exact address once they booked a
             reservation.
@@ -236,7 +240,7 @@ function CreateSpot() {
 
       {page === 3 && (
         <div>
-          <h2>Upload up to 5 image URLs</h2>
+          <h2 className="form-header">Upload your image URLs</h2>
           {images.map((img, index) => (
             <div className="input-label-div" key={index}>
               <label htmlFor={`image-${index}`}>Image URL {index + 1}</label>
@@ -281,7 +285,7 @@ function CreateSpot() {
               Back
             </button>
             <button className="submit-btn" type="submit">
-              Create Spot
+              Create 
             </button>
           </div>
         </div>

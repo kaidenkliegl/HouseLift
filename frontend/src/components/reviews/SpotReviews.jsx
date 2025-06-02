@@ -53,25 +53,29 @@ function SpotReviews({ spotId, price }) {
             <h4>New</h4>
           )}
         </div>
-      
 
-      {currentUser && currentUser.id !== spot.ownerId && (
-        <OpenModalButton
-          buttonText="Post Your Review"
-          className="review-btn"
-          modalComponent={
-            <ReviewFormModal
-              spotId={spotId}
-              onReviewSubmit={() => {
-                dispatch(retreiveSpotByID(spotId));
-              }}
-            />
-          }
-        />
-      )}
-</div>
+        {currentUser && currentUser.id !== spot.ownerId && (
+          <OpenModalButton
+            buttonText="Post Your Review"
+            className="review-btn"
+            modalComponent={
+              <ReviewFormModal
+                spotId={spotId}
+                onReviewSubmit={() => {
+                  dispatch(retreiveSpotByID(spotId));
+                }}
+              />
+            }
+          />
+        )}
+      </div>
+
       {spotReviews.length === 0 ? (
-        <p>Be the first to leave a review!</p>
+        currentUser?.id !== spot.ownerId && (
+          <div className="first-review-text">
+            <p>Be the first to leave a review!</p>
+          </div>
+        )
       ) : (
         <ul id="review-grid">
           {spotReviews.map((spotReview) => {
