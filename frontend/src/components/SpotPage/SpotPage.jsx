@@ -5,7 +5,6 @@ import { retreiveSpotByID } from "../../store/spots";
 import SpotReviews from "../reviews/SpotReviews";
 import SpotImages from "./SpotImages";
 import { dismountSpot } from "../../store/spots";
-import ImagesModal from "./ImagesModal";
 import "./SpotPage.css";
 
 function SpotPage() {
