@@ -18,6 +18,7 @@ function DeleteModal({ func, spot }) {
         Yes, delete
       </button>
       <button
+      className="go-back-btn"
         onClick={() => {
           closeModal()
         }}

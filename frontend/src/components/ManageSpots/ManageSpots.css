@@ -18,3 +18,35 @@
     color: rgb(0, 0, 1);
     text-decoration: underline;
 }
+
+.manage-spot-button {
+    padding: 6px 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+ 
+  .update-spot {
+    background-color: #0077B6;
+    color: white;
+    margin-left: 2px;
+  }
+  
+  .update-spot:hover {
+    background-color: #005F87;
+  }
+
+  .delete-spot {
+    background-color: #D62828;
+    color: white;
+    margin-right: 2px;
+  }
+  
+  .delete-spot:hover {
+    background-color: blue;
+  }

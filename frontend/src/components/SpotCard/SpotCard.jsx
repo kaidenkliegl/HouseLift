@@ -4,7 +4,7 @@ import "./SpotCard.css";
 //this is my individual spot. The spot info is being passed down through a prop from SpotGrid
 function SpotCard({ spot }) {
   return (
-    <Link to={`/spots/${spot.id}`}>
+    <Link to={`/spots/${spot.id}`} className="card-link">
       <div className="card-container">
         <img src={spot.previewImage} alt="" className="spotImage" />
 

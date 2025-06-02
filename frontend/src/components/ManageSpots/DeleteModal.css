@@ -22,14 +22,18 @@
 
 .dlt-modal button{
    height: 40px;
-   border-radius: 20px;
+   font-size: 18px;
+   border-radius: 8px;
     cursor: pointer;
-    font-size: 15px;
+    
 }
 
 .dlt-button{
-    background-color: rgb(234, 71, 71);
+    background-color: #D62828;
     color: white;
     font-size: 15px;
 }
 
+.go-back-btn{
+    background-color: lightgray;
+}

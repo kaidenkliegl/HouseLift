@@ -1,13 +1,19 @@
 
 
-a {
+
+.card-link {
+  display: flex;
+  width: 300px;   
+  max-width: 300px;  
   text-decoration: none;
+  color: inherit;
 }
   .card-container {
     display: flex;
     flex-direction: column;
-    width: 100%; /* let it fill grid column width */
-    max-width: 300px; /* max width to keep cards consistent */
+    width: 300px; /* let it fill grid column width */
+    max-width: 300px; 
+    gap: 8px;
   }
   
   .spotImage {

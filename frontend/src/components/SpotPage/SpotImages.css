@@ -12,6 +12,7 @@
     max-width: 1120px;
     border-radius: 12px;
     overflow: hidden;
+    
   }
   
 
@@ -22,6 +23,7 @@
     object-fit: cover;
     display: block;
     border-radius: 8px;
+    cursor: pointer;
   }
   
 
@@ -40,7 +42,13 @@
 }
 .display-all-btn{
     position: absolute;
-    right: 100px;
+    right: 20px;
     bottom: 8px;
+    padding: 3px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    opacity: 70%;
+    cursor: pointer;
 
 }

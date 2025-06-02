@@ -41,7 +41,7 @@
   color: #333333;
 }
 
-.profile-dropdown li button {
+.profile-dropdown li .login-signup, .log-out-btn {
   display: block;
   margin: 0.5rem auto;
   border: none;
@@ -52,10 +52,26 @@
   border-radius: 8px;
   
 }
-.profile-dropdown li button:hover {
+.demo-btn {
+  display: block;
+  background: none;
+  border: none;
+  margin: 0.5rem auto;
+  color: black; /* Use your link color */
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  text-align: left;
+}
+
+.profile-dropdown li .login-signup:hover, .log-out-btn:hover {
   background-color: #005f87;
 }
 
+.demo-btn:hover{
+  text-decoration: underline;
+}
 .profile-btn {
   position: relative;
   display: flex;
@@ -75,9 +91,7 @@
   width: 30px;
   padding: 5px;
 }
-.demo-btn {
-  background-color: transparent;
-}
+
 
 .user-Letter {
   font-size: 30px;
@@ -95,3 +109,5 @@
   padding: 5px;
   color: grey;
 }
+
+.log-out-btn
