@@ -51,6 +51,7 @@
 }
 
 .home-nav {
+  display: flex;
   position: fixed;
   width: 100%;
   top: 0;
@@ -100,6 +101,7 @@
  }
 
 .standard-nav {
+  display: flex;
   margin: 0 0 1vh 0;
   padding: 10px 50px 2vh 50px;
 }
