@@ -42,8 +42,14 @@
     font-size: 1rem;      
     box-sizing: border-box; 
     margin: 10px 0;
+    background-color: #0077b6;
+    color: white;
+    border-radius: 8px;
   }
 
+  .signup-btn:hover{
+    background-color:#005F87 ;
+  }
   .signUpForm p {
     width: 350px;
   }
